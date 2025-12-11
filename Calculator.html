@@ -46,8 +46,15 @@
             line-height: 1.6;
             color: var(--main-black-color);
             background-color: #f5f5f5;
-            padding: 1.25rem;
             font-weight: 700;
+        }
+
+        .super-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            border: 1px solid var(--main-border-color);
         }
 
 
@@ -65,7 +72,7 @@
             max-width: 100%;
             margin: 0 auto;
             background-color: white;
-            padding: 1.875rem;
+            padding: 1.875rem 0px;
             border-radius: 0.5rem;
             display: flex;
             flex-direction: column;
@@ -81,7 +88,9 @@
             flex-direction: row;
             width: 80%;
             height: 25rem;
-            border: 1px solid var(--main-border-color);
+            border-right: 1px solid var(--main-border-color);
+            border-left: 1px solid var(--main-border-color);
+
         }
 
 
@@ -440,7 +449,8 @@
 
 
         .completed-calc-item {
-            border: 1px solid var(--main-border-color);
+            border-left: 1px solid var(--main-border-color);
+            border-right: 1px solid var(--main-border-color);
             border-radius: 0.25rem;
             overflow: hidden;
         }
@@ -622,9 +632,6 @@
             }
 
 
-            .main-container {
-                padding: 0.938rem;
-            }
 
 
             .calc-container {
@@ -749,9 +756,7 @@
             .option-block-main-part {
                 height: auto;
                 min-height: 9.375rem;
-                flex-direction: row;
-
-
+                flex-direction: column;
             }
 
 
@@ -971,166 +976,171 @@
 <body>
     <div class="main-container">
         <!-- Active Calculator -->
-        <div class="calc-container" id="active-calculator">
-            <div class="parameter-block">
-                <div class="parameter-list">
-                    <div class="container-line">
-                        <p class="container-line-part-1">Тип панелей:</p>
-                        <span class="selected-value" id="selected-panel">Выберите</span>
+        <div class="super-container">
+            <div class="calc-container" id="active-calculator">
+                <div class="parameter-block">
+                    <div class="parameter-list">
+                        <div class="container-line">
+                            <p class="container-line-part-1">Тип панелей:</p>
+                            <span class="selected-value" id="selected-panel">Выберите</span>
+                        </div>
+                        <div class="container-line">
+                            <p class="container-line-part-1">Тип утеплителя:</p>
+                            <span class="selected-value" id="selected-insulation">Выберите</span>
+                        </div>
+                        <div class="container-line">
+                            <p class="container-line-part-1">Толщина:</p>
+                            <span class="selected-value" id="selected-thickness">Выберите</span>
+                        </div>
+                        <div class="container-line">
+                            <p class="container-line-part-1">Площадь:</p>
+                            <span class="selected-value" id="selected-area">Выберите</span>
+                        </div>
+                        <div class="container-line">
+                            <p class="container-line-part-1">Цвет панелей:</p>
+                            <span class="selected-value" id="selected-color">Выберите</span>
+                        </div>
+                        <div class="container-line">
+                            <p class="container-line-part-1">Тип профилирования:</p>
+                            <span class="selected-value" id="selected-profiling">Выберите</span>
+                        </div>
                     </div>
-                    <div class="container-line">
-                        <p class="container-line-part-1">Тип утеплителя:</p>
-                        <span class="selected-value" id="selected-insulation">Выберите</span>
-                    </div>
-                    <div class="container-line">
-                        <p class="container-line-part-1">Толщина:</p>
-                        <span class="selected-value" id="selected-thickness">Выберите</span>
-                    </div>
-                    <div class="container-line">
-                        <p class="container-line-part-1">Площадь:</p>
-                        <span class="selected-value" id="selected-area">Выберите</span>
-                    </div>
-                    <div class="container-line">
-                        <p class="container-line-part-1">Цвет панелей:</p>
-                        <span class="selected-value" id="selected-color">Выберите</span>
-                    </div>
-                    <div class="container-line">
-                        <p class="container-line-part-1">Тип профилирования:</p>
-                        <span class="selected-value" id="selected-profiling">Выберите</span>
+
+                    <div class="total">
+                        <h1 class="container-line blue-highlighted-text">Итого: <span id="total-price"></span></h1>
+                        <h1 class="container-line">Цена за м²: <span id="price-per-m2"></span></h1>
                     </div>
                 </div>
 
-                <div class="total">
-                    <h1 class="container-line blue-highlighted-text">Итого: <span id="total-price"></span></h1>
-                    <h1 class="container-line">Цена за м²: <span id="price-per-m2"></span></h1>
-                </div>
-            </div>
-
-            <!-- Stage 1: Panel Type -->
-            <div class="option-block stage active" id="stage-panel">
-                <div class="option-block-header">
-                    <h1 class="blue-highlighted-text big-text">КАЛЬКУЛЯТОР СТОИМОСТИ</h1>
-                    <h1 class="big-text">СЭНДВИЧ-ПАНЕЛЕЙ</h1>
-                    <h1 class="blue-highlighted-text">Тип панели</h1>
-                </div>
-                <div class="option-block-main-part">
-                    <div class="double-choose-block right-block-border" onclick="selectPanel('wall')">
-                        <img class="img" src="Images/stenov.png" />
-                        <h1 class="option-name-center">Стеновые сэндвич-панели</h1>
-                    </div>
-                    <div class="double-choose-block" onclick="selectPanel('roof')">
-                        <img class="img" src="Images/krovel.png" />
-                        <h1 class="option-name-center">Кровельные сэндвич-панели</h1>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Stage 2: Insulation Type -->
-            <div class="option-block stage" id="stage-insulation">
-                <div class="option-block-header">
-                    <h1 class="blue-highlighted-text big-text">КАЛЬКУЛЯТОР СТОИМОСТИ</h1>
-                    <h1 class="big-text">СЭНДВИЧ-ПАНЕЛЕЙ</h1>
-                    <h1 class="blue-highlighted-text">Тип утеплителя</h1>
-                </div>
-                <div class="option-block-main-part">
-                    <div class="double-choose-block right-block-border" onclick="selectInsulation('minvata')">
-                        <img class="img" src="Images/minvata.png" />
-                        <h1>Минвата</h1>
-                    </div>
-                    <div class="double-choose-block" onclick="selectInsulation('pps')">
-                        <img class="img" src="Images/pps.png" />
-                        <h1>ППС</h1>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Stage 3: Thickness -->
-            <div class="option-block stage" id="stage-thickness">
-                <div class="option-block-header">
-                    <h1 class="blue-highlighted-text big-text">КАЛЬКУЛЯТОР СТОИМОСТИ</h1>
-                    <h1 class="big-text">СЭНДВИЧ-ПАНЕЛЕЙ</h1>
-                    <h1 class="blue-highlighted-text">Толщина, мм</h1>
-                </div>
-                <table class="grid-option-block-main-part choose-block-table" id="thickness-table">
-                </table>
-            </div>
-
-            <!-- Stage 4: Area -->
-            <div class="option-block stage" id="stage-area">
-                <div class="option-block-header area">
-                    <div class="area-subcontainer">
+                <!-- Stage 1: Panel Type -->
+                <div class="option-block stage active" id="stage-panel">
+                    <div class="option-block-header">
                         <h1 class="blue-highlighted-text big-text">КАЛЬКУЛЯТОР СТОИМОСТИ</h1>
                         <h1 class="big-text">СЭНДВИЧ-ПАНЕЛЕЙ</h1>
+                        <h1 class="blue-highlighted-text">Тип панели</h1>
                     </div>
-                    <div class="area-subcontainer">
-                        <h1 class="blue-highlighted-text">Площадь, м²</h1>
-                        <h1>(минимум 35 м²)</h1>
+                    <div class="option-block-main-part">
+                        <div class="double-choose-block right-block-border" onclick="selectPanel('wall')">
+                            <img class="img" src="Images/stenov.png" />
+                            <h1 class="option-name-center">Стеновые сэндвич-панели</h1>
+                        </div>
+                        <div class="double-choose-block" onclick="selectPanel('roof')">
+                            <img class="img" src="Images/krovel.png" />
+                            <h1 class="option-name-center">Кровельные сэндвич-панели</h1>
+                        </div>
                     </div>
                 </div>
-                <div class="option-block-main-part area">
-                    <input class="area-input" id="area-input" type="number" min="35"
-                        placeholder="Введите значение (минимум 35 м²)" onchange="selectArea()" />
-                </div>
-            </div>
 
-            <!-- Stage 5: Color -->
-            <div class="option-block stage" id="stage-color">
-                <div class="option-block-header">
-                    <h1 class="blue-highlighted-text big-text">КАЛЬКУЛЯТОР СТОИМОСТИ</h1>
-                    <h1 class="big-text">СЭНДВИЧ-ПАНЕЛЕЙ</h1>
-                    <h1 class="blue-highlighted-text">Цвет панели</h1>
-                </div>
-                <div class="option-block-main-part color-block">
-                    <div class="color-type-1">
-                        <div>
-                            <h1>Дополнительные (+50 ₽)</h1>
+                <!-- Stage 2: Insulation Type -->
+                <div class="option-block stage" id="stage-insulation">
+                    <div class="option-block-header">
+                        <h1 class="blue-highlighted-text big-text">КАЛЬКУЛЯТОР СТОИМОСТИ</h1>
+                        <h1 class="big-text">СЭНДВИЧ-ПАНЕЛЕЙ</h1>
+                        <h1 class="blue-highlighted-text">Тип утеплителя</h1>
+                    </div>
+                    <div class="option-block-main-part">
+                        <div class="double-choose-block right-block-border" onclick="selectInsulation('minvata')">
+                            <img class="img" src="Images/minvata.png" />
+                            <h1>Минвата</h1>
                         </div>
-                        <div class="color-type-1-grid" id="color-grid-additional">
+                        <div class="double-choose-block" onclick="selectInsulation('pps')">
+                            <img class="img" src="Images/pps.png" />
+                            <h1>ППС</h1>
                         </div>
                     </div>
-                    <div class="color-type-2">
-                        <div class="color-type-2-block">
-                            <h1>Стандартные (+0 ₽)</h1>
-                            <div class="color-button-block" id="color-standard" onclick="selectColor('9003/9003')">
+                </div>
+
+                <!-- Stage 3: Thickness -->
+                <div class="option-block stage" id="stage-thickness">
+                    <div class="option-block-header">
+                        <h1 class="blue-highlighted-text big-text">КАЛЬКУЛЯТОР СТОИМОСТИ</h1>
+                        <h1 class="big-text">СЭНДВИЧ-ПАНЕЛЕЙ</h1>
+                        <h1 class="blue-highlighted-text">Толщина, мм</h1>
+                    </div>
+                    <table class="grid-option-block-main-part choose-block-table" id="thickness-table">
+                    </table>
+                </div>
+
+                <!-- Stage 4: Area -->
+                <div class="option-block stage" id="stage-area">
+                    <div class="option-block-header area">
+                        <div class="area-subcontainer">
+                            <h1 class="blue-highlighted-text big-text">КАЛЬКУЛЯТОР СТОИМОСТИ</h1>
+                            <h1 class="big-text">СЭНДВИЧ-ПАНЕЛЕЙ</h1>
+                        </div>
+                        <div class="area-subcontainer">
+                            <h1 class="blue-highlighted-text">Площадь, м²</h1>
+                            <h1>(минимум 35 м²)</h1>
+                        </div>
+                    </div>
+                    <div class="option-block-main-part area">
+                        <input class="area-input" id="area-input" type="number" min="35"
+                            placeholder="Введите значение (минимум 35 м²)" onchange="selectArea()" />
+                    </div>
+                </div>
+
+                <!-- Stage 5: Color -->
+                <div class="option-block stage" id="stage-color">
+                    <div class="option-block-header">
+                        <h1 class="blue-highlighted-text big-text">КАЛЬКУЛЯТОР СТОИМОСТИ</h1>
+                        <h1 class="big-text">СЭНДВИЧ-ПАНЕЛЕЙ</h1>
+                        <h1 class="blue-highlighted-text">Цвет панели</h1>
+                    </div>
+                    <div class="option-block-main-part color-block">
+                        <div class="color-type-1">
+                            <div>
+                                <h1>Дополнительные (+50 ₽)</h1>
+                            </div>
+                            <div class="color-type-1-grid" id="color-grid-additional">
                             </div>
                         </div>
-                        <div class="color-type-2-block">
-                            <h1>SteelArt (+200 ₽)</h1>
-                            <div class="color-button-block wood" id="color-steelart" onclick="selectColor('SteelArt')">
+                        <div class="color-type-2">
+                            <div class="color-type-2-block">
+                                <h1>Стандартные (+0 ₽)</h1>
+                                <div class="color-button-block" id="color-standard" onclick="selectColor('9003/9003')">
+                                </div>
+                            </div>
+                            <div class="color-type-2-block">
+                                <h1>SteelArt (+200 ₽)</h1>
+                                <div class="color-button-block wood" id="color-steelart"
+                                    onclick="selectColor('SteelArt')">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Stage 6: Profiling -->
-            <div class="option-block stage" id="stage-profiling">
-                <div class="option-block-header">
-                    <h1 class="blue-highlighted-text big-text">КАЛЬКУЛЯТОР СТОИМОСТИ</h1>
-                    <h1 class="big-text">СЭНДВИЧ-ПАНЕЛЕЙ</h1>
-                    <h1 class="blue-highlighted-text">Тип профилирования</h1>
-                </div>
-                <table class="grid-option-block-main-part choose-block-table" id="profiling-table">
-                </table>
-            </div>
-
-            <!-- Stage 7: Final -->
-            <div class="option-block stage" id="stage-final">
-                <div class="final-stage-content">
-                    <div class="final-message">
-                        <div class="checkmark">✓</div>
-                        <h1 class="big-text">Расчёт завершён</h1>
-                        <h1 style="margin-top: 10px;">Спасибо за использование калькулятора!</h1>
+                <!-- Stage 6: Profiling -->
+                <div class="option-block stage" id="stage-profiling">
+                    <div class="option-block-header">
+                        <h1 class="blue-highlighted-text big-text">КАЛЬКУЛЯТОР СТОИМОСТИ</h1>
+                        <h1 class="big-text">СЭНДВИЧ-ПАНЕЛЕЙ</h1>
+                        <h1 class="blue-highlighted-text">Тип профилирования</h1>
                     </div>
-                    <button class="new-calc-button" onclick="startNewCalculation()">
-                        + Добавить новый расчёт
-                    </button>
+                    <table class="grid-option-block-main-part choose-block-table" id="profiling-table">
+                    </table>
+                </div>
+
+                <!-- Stage 7: Final -->
+                <div class="option-block stage" id="stage-final">
+                    <div class="final-stage-content">
+                        <div class="final-message">
+                            <div class="checkmark">✓</div>
+                            <h1 class="big-text">Расчёт завершён</h1>
+                            <h1 style="margin-top: 10px;">Спасибо за использование калькулятора!</h1>
+                        </div>
+                        <button class="new-calc-button" onclick="startNewCalculation()">
+                            + Добавить новый расчёт
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Completed Calculations List -->
-        <div class="completed-calculations" id="completed-list"></div>
+        <div class="super-container">
+            <div class="completed-calculations" id="completed-list"></div>
+        </div>
     </div>
 
     <script>

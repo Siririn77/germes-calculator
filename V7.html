@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор сэндвич-панелей</title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+
+
+        :root {
+            --main-border-color: #CECECE;
+            --main-blue-color: #004B97;
+            --main-gray-color: #818181;
+            --main-black-color: #383838;
+
+            /* Font size scale using rem */
+            --font-size-xs: 0.75rem;    /* 12px */
+            --font-size-sm: 0.875rem;   /* 14px */
+            --font-size-base: 1rem;     /* 16px */
+            --font-size-md: 1.125rem;   /* 18px */
+            --font-size-lg: 1.25rem;    /* 20px */
+            --font-size-xl: 1.5rem;     /* 24px */
+            --font-size-2xl: 1.75rem;   /* 28px */
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rubik', sans-serif;
+        }
+
+
+        body {
+            line-height: 1.6;
+            color: var(--main-black-color);
+            background-color: #f5f5f5;
+            padding: 1.25rem;
+            font-weight: 700;
+        }
+
+
+        h1 {
+            font-size: var(--font-size-base);
+        }
+
+
+        .big-text {
+            font-size: var(--font-size-xl);
+        }
+
+
+        .main-container {
+            max-width: 100%;
+            margin: 0 auto;
+            background-color: white;
+            padding: 1.875rem;
+            border-radius: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        .calc-container {
+            display: flex;
+            flex-direction: row;
+            width: 80%;
+            height: 25rem;
+            border: 1px solid var(--main-border-color);
+        }
+
+
+        .container-line {
+            width: 100%;
+            font-size: var(--font-size-lg);
+            padding: 0 1.25rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-row: 1;
+            align-items: center;
+        }
+
+
+
+
+        .selected-value {
+            color: var(--main-blue-color);
+            text-align: center;
+            justify-self: center;
+        }
+
+
+        .parameter-block {
+            width: 40%;
+            height: 100%;
+            border-right: 1px solid var(--main-border-color);
+        }
+
+
+        .option-block {
+            width: 60%;
+            height: 100%;
+        }
+
+
+        .total {
+            width: 100%;
+            height: 30%;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            border-bottom: 1px solid var(--main-border-color);
+        }
+
+
+        .total:last-child {
+            border-bottom: 0px;
+            border-top: 1px solid var(--main-border-color);
+        }
+
+
+        .parameter-list {
+            width: 100%;
+            height: 70%;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+
+        .option-block-header {
+            width: 100%;
+            height: 40%;
+            border-bottom: 1px solid var(--main-border-color);
+            padding: 1.25rem;
+        }
+
+
+        .option-block-header.area {
+            width: 100%;
+            height: 60%;
+            border-bottom: 1px solid var(--main-border-color);
+        }
+
+
+        .option-block-main-part {
+            width: 100%;
+            height: 60%;
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+        }
+
+
+        .area-subcontainer {
+            width: 100%;
+            height: 50%;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 1.25rem;
+        }
+
+
+        .option-block-main-part.area {
+            width: 100%;
+            height: 40%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        .blue-highlighted-text {
+            color: var(--main-blue-color);
+        }
+
+
+        .double-choose-block {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+
+        .double-choose-block:hover {
+            background-color: #f0f0f0;
+        }
+
+
+        .double-choose-block.selected {
+            background-color: #e3f2fd;
+        }
+
+
+        .grid-option-block-main-part {
+            width: 100%;
+            height: 60%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+
+        .grid-option-block-main-part tr {
+            height: 50%;
+        }
+
+
+        .right-block-border {
+            border-right: 1px solid var(--main-border-color);
+        }
+
+
+        .img {
+            height: 6em;
+            width: 14em;
+            object-fit: scale-down;
+        }
+
+
+        .width-option {
+            text-align: center;
+            vertical-align: middle;
+            border-right: 1px solid var(--main-border-color);
+            border-bottom: 1px solid var(--main-border-color);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+
+        .width-option:hover {
+            background-color: #f0f0f0;
+        }
+
+
+        .width-option.selected {
+            background-color: #e3f2fd;
+            color: var(--main-blue-color);
+        }
+
+
+        .width-option:last-child {
+            border-right: none;
+        }
+
+
+        .grid-option-block-main-part tr:last-child .width-option {
+            border-bottom: none;
+        }
+
+
+        .width-option.empty {
+            cursor: default;
+            background-color: #fafafa;
+        }
+
+
+        .width-option.empty:hover {
+            background-color: #fafafa;
+        }
+
+
+        .area-input {
+            width: 100%;
+            height: 100%;
+            border: 0px;
+            font-size: var(--font-size-lg);
+            padding: 1.25rem;
+            color: var(--main-black-color);
+            font-weight: 700;
+        }
+
+
+        .area-input::placeholder {
+            font-size: var(--font-size-lg);
+            color: var(--main-gray-color);
+        }
+
+
+        .area-input:focus-visible {
+            outline-width: 2px;
+            outline-color: var(--main-border-color);
+        }
+
+
+        .color-block {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+
+        .color-type-1 {
+            width: 100%;
+            height: 65%;
+            padding-top: 1.25rem;
+            padding-left: 1.25rem;
+        }
+
+
+        .color-type-2 {
+            width: 100%;
+            height: 35%;
+            display: flex;
+            flex-direction: row;
+        }
+
+
+        .color-type-2-block {
+            padding-top: 0.625rem;
+            padding-left: 1.25rem;
+        }
+
+
+        .color-button-block {
+            background-color: var(--main-gray-color);
+            width: 2.5em;
+            height: 1em;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+
+        .color-button-block:hover {
+            border-color: var(--main-blue-color);
+        }
+
+
+        .color-button-block.selected {
+            border-color: var(--main-blue-color);
+            border-width: 3px;
+        }
+
+
+        .color-button-block.wood {
+            background: linear-gradient(90deg, #8B4513 0%, #D2691E 50%, #8B4513 100%);
+        }
+
+
+        .color-type-1-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 0.625rem;
+            padding-top: 0.625rem;
+        }
+
+
+        .stage {
+            display: none;
+        }
+
+
+        .stage.active {
+            display: block;
+        }
+
+
+
+        .option-name-center {
+            text-align: center;
+        }
+
+
+        .final-stage-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 1.25rem;
+        }
+
+
+        .final-message {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+
+        .new-calc-button {
+            width: 100%;
+            padding: 1.25rem;
+            background-color: var(--main-blue-color);
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            font-size: var(--font-size-lg);
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+
+        .new-calc-button:hover {
+            background-color: #003875;
+        }
+
+
+        .checkmark {
+            font-size: 4rem;
+            color: var(--main-blue-color);
+            margin-bottom: 1.25rem;
+        }
+
+
+        .completed-calculations {
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.625rem;
+        }
+
+
+        .completed-calc-item {
+            border: 1px solid var(--main-border-color);
+            border-radius: 0.25rem;
+            overflow: hidden;
+        }
+
+
+        .completed-calc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.938rem 1.25rem;
+            cursor: pointer;
+            background-color: #fff;
+            transition: background-color 0.2s;
+        }
+
+
+        .completed-calc-header:hover {
+            background-color: #f0f0f0;
+        }
+
+
+        .completed-calc-header.active {
+            background-color: #e3f2fd;
+        }
+
+
+        .toggle-icon {
+            margin-right: 0.625rem;
+            transition: transform 0.3s;
+            display: inline-block;
+            font-size: var(--font-size-sm);
+            color: var(--main-blue-color);
+        }
+
+
+        .completed-calc-header.active .toggle-icon {
+            transform: rotate(90deg);
+        }
+
+
+        .calc-number {
+            font-size: var(--font-size-md);
+            color: var(--main-gray-color);
+            display: flex;
+            align-items: center;
+        }
+
+
+        .calc-total {
+            font-size: var(--font-size-lg);
+            color: var(--main-blue-color);
+            font-weight: bold;
+        }
+
+
+        .completed-calc-details {
+            display: none;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.938rem;
+            padding: 1.25rem;
+            border-top: 1px solid var(--main-border-color);
+            font-size: var(--font-size-sm);
+            background-color: #fafafa;
+        }
+
+
+        .completed-calc-details.show {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(2.5em, 1fr));
+        }
+
+
+        .calc-detail-item {
+            padding: 0.313rem 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        .calc-detail-label {
+            color: var(--main-gray-color);
+            font-weight: 400;
+            font-size: var(--font-size-sm);
+        }
+
+
+        .calc-detail-value {
+            color: var(--main-black-color);
+            font-weight: 700;
+        }
+
+
+        .hidden {
+            display: none;
+        }
+
+
+        /* RESPONSIVE STYLES */
+
+
+
+
+
+        @media screen and (max-width: 1300px) {
+            .container-line {
+                display: flex;
+                flex-direction: column;
+                font-size: var(--font-size-base);
+            }
+
+
+
+            .calc-container {
+                height: 31.25rem;
+            }
+
+
+            .option-block-main-part {
+                border-bottom: 1px solid var(--main-border-color);
+            }
+
+
+            .option-block-main-part {
+                border-bottom: 0px;
+
+
+            }
+
+
+            .color-type-1-grid {
+                grid-template-columns: repeat(7, 1fr);
+                grid-template-rows: repeat(5, 1fr);
+                padding-top: 0.625rem;
+            }
+        }
+
+
+
+        @media screen and (max-width: 1024px) {
+            .calc-container {
+                width: 95%;
+            }
+
+
+            .completed-calculations {
+                width: 95%;
+            }
+
+
+            .completed-calc-details.show{
+                grid-template-columns: repeat(3, 1fr)
+            }
+
+
+            .big-text {
+                font-size: var(--font-size-2xl);
+            }
+        }
+
+
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 0;
+            }
+
+
+            .double-choose-block:last-child{
+                border-left: 1px solid var(--main-border-color);
+            }
+
+
+            .choose-block-table {
+                border-bottom: 1px solid var(--main-border-color);
+            }
+
+
+            .color-block {
+                border-bottom: 1px solid var(--main-border-color);
+            }
+
+
+            .main-container {
+                padding: 0.938rem;
+            }
+
+
+            .calc-container {
+                width: 100%;
+                height: auto;
+                flex-direction: column;
+            }
+
+
+            .calc-detail-item{
+                display: flex;
+
+            }
+
+
+            .calc-detail-label,
+            .calc-detail-value{
+                text-align: center;
+                word-break: break-word;
+            }
+
+
+            .calc-container #text {
+                width: 100%;
+                height: auto;
+                flex-direction: column;
+            }
+
+
+
+            .parameter-block {
+                width: 100%;
+                height: auto;
+                border-right: none;
+                order: 2;
+                display: grid;
+                grid-row: 1;
+                /* Move parameter block after option block */
+            }
+
+
+            .option-block {
+                width: 100%;
+                order: 1;
+                /* Move option block to top */
+            }
+
+
+            .container-line {
+                grid-template-columns: 1fr;
+                gap: 0.125rem;
+                padding: 0 0.938rem;
+                font-size: var(--font-size-base);
+                text-align: left;
+            }
+
+
+            .selected-value {
+                text-align: center;
+                justify-self: start;
+            }
+
+
+            h1 {
+                font-size: var(--font-size-base);
+            }
+
+
+            .big-text {
+                font-size: 1.375rem;
+            }
+
+
+            .parameter-list {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr 1fr !important;
+                grid-row: 1;
+                gap: 0.313rem;
+                height: auto;
+                /* Reset flex properties */
+                flex-direction: initial;
+                justify-content: initial;
+            }
+
+
+            .container-line {
+                /* Keep existing mobile styles */
+                grid-template-columns: 1fr;
+                gap: 0.125rem;
+                padding: 0 0.938rem;
+                font-size: var(--font-size-base);
+                text-align: left;
+                /* Remove or reset grid-row if it interferes */
+                grid-row: auto;
+                display: flex;
+                justify-content: space-evenly;
+            }
+
+
+            .container-line-part-1 {
+                text-align: center;
+            }
+
+
+            .total {
+                height: auto;
+                padding: 0.625rem 0;
+            }
+
+
+            .option-block-header {
+                height: auto;
+                padding: 0.938rem;
+            }
+
+
+            .option-block-header.area {
+                height: auto;
+            }
+
+
+            .option-block-main-part {
+                height: auto;
+                min-height: 9.375rem;
+                flex-direction: row;
+
+
+            }
+
+
+
+
+            .option-block-main-part.area {
+                height: auto;
+                min-height: 3.75rem;
+            }
+
+
+            .double-choose-block {
+                width: 100%;
+                height: auto;
+                min-height: 9.375rem;
+                padding: 1.25rem;
+                border-right: none !important;
+                border-bottom: 1px solid var(--main-border-color);
+            }
+
+
+
+            .img {
+                height: 5em;
+                width: 10em;
+            }
+
+
+            .grid-option-block-main-part {
+                height: auto;
+            }
+
+
+            .grid-option-block-main-part tr {
+                height: auto;
+            }
+
+
+            .width-option {
+                padding: 0.938rem 0.625rem;
+                font-size: var(--font-size-sm);
+            }
+
+
+            .area-input {
+                font-size: var(--font-size-base);
+                border-bottom: 1px solid var(--main-border-color);
+            }
+
+
+            .area-input::placeholder {
+                font-size: var(--font-size-base);
+            }
+
+
+            .color-type-1 {
+                height: auto;
+                padding: 0.938rem;
+            }
+
+
+            .color-type-2 {
+                height: auto;
+                flex-direction: column;
+                gap: 0.938rem;
+                padding-bottom: 0.938rem;
+            }
+
+
+            .color-type-2-block {
+                padding: 0 0.938rem;
+            }
+
+
+            .color-type-1-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(2em, 1fr));
+                grid-template-rows: auto;
+                gap: 0.5rem;
+            }
+
+
+
+            .color-button-block {
+                max-width: 100%;
+                min-height: 2.188rem;
+            }
+
+
+            .completed-calculations {
+                width: 100%;
+            }
+
+
+            .completed-calc-header {
+                flex-direction: row;
+                align-items: center;
+                gap: 0.625rem;
+                padding: 0.938rem;
+            }
+
+
+            .calc-number {
+                font-size: var(--font-size-base);
+            }
+
+
+            .calc-total {
+                font-size: var(--font-size-base);
+            }
+
+
+            .completed-calc-details {
+                grid-template-columns: 1fr;
+                gap: 0.625rem;
+                padding: 0.938rem;
+            }
+
+
+            .new-calc-button {
+                font-size: var(--font-size-md);
+                padding: 0.938rem;
+            }
+
+
+            .checkmark {
+                font-size: 3rem;
+            }
+
+
+            .final-stage-content {
+                padding: 0.938rem;
+            }
+        }
+
+
+        @media screen and (max-width: 480px) {
+
+
+            .main-container {
+                padding: 0;
+            }
+
+
+            .big-text {
+                font-size: var(--font-size-md);
+            }
+
+
+            h1 {
+                font-size: var(--font-size-sm);
+            }
+
+
+            .container-line {
+                font-size: 0.7rem;
+                padding: 0.5rem 0.625rem;
+            }
+
+
+            .option-block-header {
+                padding: 0.625rem;
+            }
+
+
+            .color-type-1-grid {
+                grid-template-columns: repeat(7, 1fr);
+                gap: 0.375rem;
+            }
+
+
+            .width-option {
+                padding: 0.75rem 0.313rem;
+                font-size: var(--font-size-xs);
+            }
+
+
+            .img {
+                height: 4em;
+                width: 8em;
+            }
+
+
+            .new-calc-button {
+                font-size: var(--font-size-base);
+            }
+
+
+            .calc-total {
+                font-size: var(--font-size-sm);
+            }
+
+
+            .area-subcontainer {
+                padding: 0 0.625rem;
+            }
+        }
+
+
+        @media screen and (max-width: 400px) {
+
+
+
+            .color-type-1-grid {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 0.375rem;
+            }
+
+
+
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="main-container">
+        <!-- Active Calculator -->
+        <div class="calc-container" id="active-calculator">
+            <div class="parameter-block">
+                <div class="parameter-list">
+                    <div class="container-line">
+                        <p class="container-line-part-1">Тип панелей:</p>
+                        <span class="selected-value" id="selected-panel">Выберите</span>
+                    </div>
+                    <div class="container-line">
+                        <p class="container-line-part-1">Тип утеплителя:</p>
+                        <span class="selected-value" id="selected-insulation">Выберите</span>
+                    </div>
+                    <div class="container-line">
+                        <p class="container-line-part-1">Толщина:</p>
+                        <span class="selected-value" id="selected-thickness">Выберите</span>
+                    </div>
+                    <div class="container-line">
+                        <p class="container-line-part-1">Площадь:</p>
+                        <span class="selected-value" id="selected-area">Выберите</span>
+                    </div>
+                    <div class="container-line">
+                        <p class="container-line-part-1">Цвет панелей:</p>
+                        <span class="selected-value" id="selected-color">Выберите</span>
+                    </div>
+                    <div class="container-line">
+                        <p class="container-line-part-1">Тип профилирования:</p>
+                        <span class="selected-value" id="selected-profiling">Выберите</span>
+                    </div>
+                </div>
+
+                <div class="total">
+                    <h1 class="container-line blue-highlighted-text">Итого: <span id="total-price"></span></h1>
+                    <h1 class="container-line">Цена за м²: <span id="price-per-m2"></span></h1>
+                </div>
+            </div>
+
+            <!-- Stage 1: Panel Type -->
+            <div class="option-block stage active" id="stage-panel">
+                <div class="option-block-header">
+                    <h1 class="blue-highlighted-text big-text">КАЛЬКУЛЯТОР СТОИМОСТИ</h1>
+                    <h1 class="big-text">СЭНДВИЧ-ПАНЕЛЕЙ</h1>
+                    <h1 class="blue-highlighted-text">Тип панели</h1>
+                </div>
+                <div class="option-block-main-part">
+                    <div class="double-choose-block right-block-border" onclick="selectPanel('wall')">
+                        <img class="img" src="Images/stenov.png" />
+                        <h1 class="option-name-center">Стеновые сэндвич-панели</h1>
+                    </div>
+                    <div class="double-choose-block" onclick="selectPanel('roof')">
+                        <img class="img" src="Images/krovel.png" />
+                        <h1 class="option-name-center">Кровельные сэндвич-панели</h1>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stage 2: Insulation Type -->
+            <div class="option-block stage" id="stage-insulation">
+                <div class="option-block-header">
+                    <h1 class="blue-highlighted-text big-text">КАЛЬКУЛЯТОР СТОИМОСТИ</h1>
+                    <h1 class="big-text">СЭНДВИЧ-ПАНЕЛЕЙ</h1>
+                    <h1 class="blue-highlighted-text">Тип утеплителя</h1>
+                </div>
+                <div class="option-block-main-part">
+                    <div class="double-choose-block right-block-border" onclick="selectInsulation('minvata')">
+                        <img class="img" src="Images/minvata.png" />
+                        <h1>Минвата</h1>
+                    </div>
+                    <div class="double-choose-block" onclick="selectInsulation('pps')">
+                        <img class="img" src="Images/pps.png" />
+                        <h1>ППС</h1>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stage 3: Thickness -->
+            <div class="option-block stage" id="stage-thickness">
+                <div class="option-block-header">
+                    <h1 class="blue-highlighted-text big-text">КАЛЬКУЛЯТОР СТОИМОСТИ</h1>
+                    <h1 class="big-text">СЭНДВИЧ-ПАНЕЛЕЙ</h1>
+                    <h1 class="blue-highlighted-text">Толщина, мм</h1>
+                </div>
+                <table class="grid-option-block-main-part choose-block-table" id="thickness-table">
+                </table>
+            </div>
+
+            <!-- Stage 4: Area -->
+            <div class="option-block stage" id="stage-area">
+                <div class="option-block-header area">
+                    <div class="area-subcontainer">
+                        <h1 class="blue-highlighted-text big-text">КАЛЬКУЛЯТОР СТОИМОСТИ</h1>
+                        <h1 class="big-text">СЭНДВИЧ-ПАНЕЛЕЙ</h1>
+                    </div>
+                    <div class="area-subcontainer">
+                        <h1 class="blue-highlighted-text">Площадь, м²</h1>
+                        <h1>(минимум 35 м²)</h1>
+                    </div>
+                </div>
+                <div class="option-block-main-part area">
+                    <input class="area-input" id="area-input" type="number" min="35"
+                        placeholder="Введите значение (минимум 35 м²)" onchange="selectArea()" />
+                </div>
+            </div>
+
+            <!-- Stage 5: Color -->
+            <div class="option-block stage" id="stage-color">
+                <div class="option-block-header">
+                    <h1 class="blue-highlighted-text big-text">КАЛЬКУЛЯТОР СТОИМОСТИ</h1>
+                    <h1 class="big-text">СЭНДВИЧ-ПАНЕЛЕЙ</h1>
+                    <h1 class="blue-highlighted-text">Цвет панели</h1>
+                </div>
+                <div class="option-block-main-part color-block">
+                    <div class="color-type-1">
+                        <div>
+                            <h1>Дополнительные (+50 ₽)</h1>
+                        </div>
+                        <div class="color-type-1-grid" id="color-grid-additional">
+                        </div>
+                    </div>
+                    <div class="color-type-2">
+                        <div class="color-type-2-block">
+                            <h1>Стандартные (+0 ₽)</h1>
+                            <div class="color-button-block" id="color-standard" onclick="selectColor('9003/9003')">
+                            </div>
+                        </div>
+                        <div class="color-type-2-block">
+                            <h1>SteelArt (+200 ₽)</h1>
+                            <div class="color-button-block wood" id="color-steelart" onclick="selectColor('SteelArt')">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stage 6: Profiling -->
+            <div class="option-block stage" id="stage-profiling">
+                <div class="option-block-header">
+                    <h1 class="blue-highlighted-text big-text">КАЛЬКУЛЯТОР СТОИМОСТИ</h1>
+                    <h1 class="big-text">СЭНДВИЧ-ПАНЕЛЕЙ</h1>
+                    <h1 class="blue-highlighted-text">Тип профилирования</h1>
+                </div>
+                <table class="grid-option-block-main-part choose-block-table" id="profiling-table">
+                </table>
+            </div>
+
+            <!-- Stage 7: Final -->
+            <div class="option-block stage" id="stage-final">
+                <div class="final-stage-content">
+                    <div class="final-message">
+                        <div class="checkmark">✓</div>
+                        <h1 class="big-text">Расчёт завершён</h1>
+                        <h1 style="margin-top: 10px;">Спасибо за использование калькулятора!</h1>
+                    </div>
+                    <button class="new-calc-button" onclick="startNewCalculation()">
+                        + Добавить новый расчёт
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Completed Calculations List -->
+        <div class="completed-calculations" id="completed-list"></div>
+    </div>
+
+    <script>
+        const CONFIG = {
+            MIN_AREA: 35,
+            MAX_AREA: 10000,
+            GOFRA_SURCHARGE: 100
+        };
+
+        const RAL_COLORS = [
+            { code: '9003/9003', hex: '#F4F4F4', name: 'Белый обе стороны', isDefault: true, surcharge: 0 },
+            { code: '9003', hex: '#F4F4F4', name: 'Сигнальный белый', isDefault: false, surcharge: 50 },
+            { code: '1014', hex: '#DDC49A', name: 'Слоновая кость', surcharge: 50 },
+            { code: '1015', hex: '#E6D2B5', name: 'Светлая слоновая кость', surcharge: 50 },
+            { code: '1018', hex: '#FACA30', name: 'Цинково-желтый', surcharge: 50 },
+            { code: '2004', hex: '#E75B12', name: 'Чисто-оранжевый', surcharge: 50 },
+            { code: '3003', hex: '#8D1D2C', name: 'Рубиново-красный', surcharge: 50 },
+            { code: '3005', hex: '#5E2028', name: 'Винно-красный', surcharge: 50 },
+            { code: '3009', hex: '#703731', name: 'Оксид красный', surcharge: 50 },
+            { code: '3011', hex: '#7E292C', name: 'Коричнево-красный', surcharge: 50 },
+            { code: '3020', hex: '#C1121C', name: 'Транспортный красный', surcharge: 50 },
+            { code: '5005', hex: '#154889', name: 'Сигнальный синий', surcharge: 50 },
+            { code: '5015', hex: '#2874B2', name: 'Небесно-голубой', surcharge: 50 },
+            { code: '5021', hex: '#07737A', name: 'Водяной синий', surcharge: 50 },
+            { code: '5024', hex: '#6A93B0', name: 'Пастельный синий', surcharge: 50 },
+            { code: '6002', hex: '#276235', name: 'Лиственно-зеленый', surcharge: 50 },
+            { code: '6005', hex: '#0F4336', name: 'Зеленый мох', surcharge: 50 },
+            { code: '6018', hex: '#48A43F', name: 'Желто-зеленый', surcharge: 50 },
+            { code: '6019', hex: '#B7D9B1', name: 'Пастельный зеленый', surcharge: 50 },
+            { code: '6020', hex: '#354733', name: 'Хромовый зеленый', surcharge: 50 },
+            { code: '6029', hex: '#007243', name: 'Мятно-зеленый', surcharge: 50 },
+            { code: '7004', hex: '#9EA0A1', name: 'Сигнальный серый', surcharge: 50 },
+            { code: '7005', hex: '#6B716F', name: 'Мышино-серый', surcharge: 50 },
+            { code: '7011', hex: '#555D61', name: 'Железно-серый', surcharge: 50 },
+            { code: '7024', hex: '#474A50', name: 'Графитовый серый', surcharge: 50 },
+            { code: '7035', hex: '#CBD0CC', name: 'Светло-серый', surcharge: 50 },
+            { code: '7047', hex: '#CFD0CF', name: 'Телегрей 4', surcharge: 50 },
+            { code: '8017', hex: '#44322D', name: 'Шоколадно-коричневый', surcharge: 50 },
+            { code: '8019', hex: '#3F3A3A', name: 'Серо-коричневый', surcharge: 50 },
+            { code: '8029', hex: '#773C27', name: 'Перламутровый медный', surcharge: 50 },
+            { code: '9002', hex: '#DDDED4', name: 'Серо-белый', surcharge: 50 },
+            { code: '9005', hex: '#0A0A0D', name: 'Черный янтарь', surcharge: 50 },
+            { code: '9006', hex: '#A5A8A6', name: 'Бело-алюминиевый', surcharge: 50 },
+            { code: '9010', hex: '#F7F9EF', name: 'Чисто-белый', surcharge: 50 },
+            { code: 'SteelArt', hex: 'wood', name: 'Рисунок под дерево', isSteelArt: true, surcharge: 200 }
+        ];
+
+
+// Fetch data from webhook and transform to desired format
+async function fetchPriceData() {
+    try {
+        const response = await fetch('https://777d.ru/webhook/get-prices-for-script');
+        const data = await response.json();
+        
+        // Extract the first object from the array
+        const rawData = data[0];
+        
+        // Transform the data structure
+        const PRICE_DATA = {
+            wall: {
+                minvata: transformWallData(rawData.wall.minvata),
+                pps: transformWallData(rawData.wall.pps)
+            },
+            roof: {
+                minvata: transformRoofMinvata(rawData.roof.minvata),
+                pps: transformRoofPps(rawData.roof.pps)
+            }
+        };
+        
+        return PRICE_DATA;
+    } catch (error) {
+        console.error('Error fetching price data:', error);
+        return null;
+    }
+}
+
+// Transform wall data (metal_0_5 and metal_0_4 to up250, up500, over500)
+function transformWallData(wallData) {
+    const transformed = {};
+    
+    for (const [thickness, prices] of Object.entries(wallData)) {
+        transformed[thickness] = {
+            up250: prices.metal_0_5,
+            up500: prices.metal_0_4,
+            over500: prices.metal_0_4 - 40  // Adjust this calculation as needed
+        };
+    }
+    
+    return transformed;
+}
+
+// Transform roof minvata data
+function transformRoofMinvata(roofData) {
+    const transformed = {};
+    
+    for (const [thickness, prices] of Object.entries(roofData)) {
+        transformed[thickness] = {
+            up250: prices.up150,
+            up500: prices.up500,
+            over500: prices.over500
+        };
+    }
+    
+    return transformed;
+}
+
+// Transform roof pps data
+function transformRoofPps(roofData) {
+    const transformed = {};
+    
+    for (const [thickness, prices] of Object.entries(roofData)) {
+        transformed[thickness] = {
+            up250: prices.up500 + 80,  // Adjust this calculation as needed
+            up500: prices.up500,
+            over500: prices.over500
+        };
+    }
+    
+    return transformed;
+}
+
+// Usage: Initialize PRICE_DATA when page loads
+let PRICE_DATA;
+
+(async function initPriceData() {
+    PRICE_DATA = await fetchPriceData();
+    console.log('Price data ready:', PRICE_DATA);
+})();
+
+
+        const THICKNESS_LIST = {
+            wall: {
+                minvata: ['40', '50', '60', '80', '100', '120', '150', '200'],
+                pps: ['40', '50', '60', '80', '100', '120', '150']
+            },
+            roof: {
+                minvata: ['60', '80', '100', '120', '150', '200'],
+                pps: ['60', '80', '100', '120', '150', '200']
+            }
+        };
+
+        const PROFILING_OPTIONS = {
+            wall: [
+                { value: '9k', label: '9 канавок' },
+                { value: '5k', label: '5 канавок' },
+                { value: 'smooth', label: 'Гладкий лист' }
+            ],
+            roof: [
+                { value: '9k', label: '9 канавок' },
+                { value: '7k', label: '7 канавок' },
+                { value: '5k', label: '5 канавок' },
+                { value: 'trap', label: 'Трапеция 50/50' },
+                { value: 'micro', label: 'Микрориф 30' },
+                { value: 'smooth', label: 'Гладкий лист' }
+            ]
+        };
+
+        let selections = {
+            panel: null,
+            insulation: null,
+            thickness: null,
+            area: null,
+            color: null,
+            profiling: null
+        };
+
+        let completedCalculations = [];
+        let calculationCounter = 0;
+
+        function showStage(stageId) {
+            document.querySelectorAll('.stage').forEach(stage => stage.classList.remove('active'));
+            document.getElementById(stageId).classList.add('active');
+        }
+
+        function selectPanel(type) {
+            selections.panel = type;
+            document.getElementById('selected-panel').textContent = type === 'wall' ? 'Стеновые' : 'Кровельные';
+            showStage('stage-insulation');
+        }
+
+        function selectInsulation(type) {
+            selections.insulation = type;
+            document.getElementById('selected-insulation').textContent = type === 'minvata' ? 'Минвата' : 'ППС';
+            renderThicknessOptions();
+            showStage('stage-thickness');
+        }
+
+        function renderThicknessOptions() {
+            const table = document.getElementById('thickness-table');
+            const thicknesses = THICKNESS_LIST[selections.panel][selections.insulation];
+
+            table.innerHTML = '';
+            const rows = Math.ceil(thicknesses.length / 4);
+
+            for (let i = 0; i < rows; i++) {
+                const row = table.insertRow();
+                for (let j = 0; j < 4; j++) {
+                    const cell = row.insertCell();
+                    const index = i * 4 + j;
+                    if (index < thicknesses.length) {
+                        cell.className = 'width-option';
+                        cell.textContent = thicknesses[index] + ' мм';
+                        cell.onclick = () => selectThickness(thicknesses[index]);
+                    } else {
+                        cell.className = 'width-option empty';
+                    }
+                }
+            }
+        }
+
+        function selectThickness(value) {
+            selections.thickness = value;
+            document.getElementById('selected-thickness').textContent = value + ' мм';
+            showStage('stage-area');
+        }
+
+        function selectArea() {
+            const input = document.getElementById('area-input');
+            const area = parseFloat(input.value);
+
+            if (!Number.isFinite(area)) {
+                alert('Введите корректное число площади');
+                return;
+            } else if (area < CONFIG.MIN_AREA) {
+                alert('Минимальная площадь: ' + CONFIG.MIN_AREA + ' м²');
+                return;
+            } else if (area > CONFIG.MAX_AREA) {
+                alert('Максимальная площадь: ' + CONFIG.MAX_AREA + ' м²');
+                return;
+            }
+
+            selections.area = area;
+            document.getElementById('selected-area').textContent = area + ' м²';
+            renderColorOptions();
+            showStage('stage-color');
+        }
+
+        function renderColorOptions() {
+            const grid = document.getElementById('color-grid-additional');
+            grid.innerHTML = '';
+
+            const additionalColors = RAL_COLORS.filter(c => !c.isDefault && !c.isSteelArt);
+            additionalColors.forEach(color => {
+                const div = document.createElement('div');
+                div.className = 'color-button-block';
+                div.style.backgroundColor = color.hex;
+                div.title = color.name + ' (' + color.code + ')';
+                div.onclick = () => selectColor(color.code);
+                grid.appendChild(div);
+            });
+
+            const standardColor = RAL_COLORS.find(c => c.isDefault);
+            document.getElementById('color-standard').style.backgroundColor = standardColor.hex;
+            document.getElementById('color-standard').title = standardColor.name;
+        }
+
+        function selectColor(code) {
+            selections.color = code;
+            const color = RAL_COLORS.find(c => c.code === code);
+            document.getElementById('selected-color').textContent = color.name;
+
+            document.querySelectorAll('.color-button-block').forEach(el => el.classList.remove('selected'));
+            event.target.classList.add('selected');
+
+            renderProfilingOptions();
+            showStage('stage-profiling');
+        }
+
+        function renderProfilingOptions() {
+            const table = document.getElementById('profiling-table');
+            const options = PROFILING_OPTIONS[selections.panel];
+
+            table.innerHTML = '';
+            const rows = Math.ceil(options.length / 4);
+
+            for (let i = 0; i < rows; i++) {
+                const row = table.insertRow();
+                for (let j = 0; j < 4; j++) {
+                    const cell = row.insertCell();
+                    const index = i * 4 + j;
+                    if (index < options.length) {
+                        cell.className = 'width-option';
+                        cell.textContent = options[index].label;
+                        cell.onclick = () => selectProfiling(options[index].value, options[index].label);
+                    } else {
+                        cell.className = 'width-option empty';
+                    }
+                }
+            }
+        }
+
+        function selectProfiling(value, label) {
+            selections.profiling = value;
+            document.getElementById('selected-profiling').textContent = label;
+
+            document.querySelectorAll('#profiling-table .width-option').forEach(el => el.classList.remove('selected'));
+            event.target.classList.add('selected');
+
+            calculatePrice();
+
+            setTimeout(() => {
+                showStage('stage-final');
+            }, 500);
+        }
+
+        function calculatePrice() {
+            const { panel, insulation, thickness, area, color, profiling } = selections;
+
+            if (!panel || !insulation || !thickness || !area || !color || !profiling) {
+                return;
+            }
+
+            const priceRange = PRICE_DATA[panel][insulation][thickness];
+            let basePrice;
+
+            if (area <= 250) {
+                basePrice = priceRange.up250;
+            } else if (area <= 500) {
+                basePrice = priceRange.up500;
+            } else {
+                basePrice = priceRange.over500;
+            }
+
+            const colorData = RAL_COLORS.find(c => c.code === color);
+            const pricePerM2 = basePrice + colorData.surcharge;
+            const totalPrice = Math.round(pricePerM2 * area);
+
+            document.getElementById('total-price').textContent = totalPrice.toLocaleString('ru-RU') + ' ₽';
+            document.getElementById('price-per-m2').textContent = pricePerM2.toLocaleString('ru-RU') + ' ₽';
+        }
+
+        function startNewCalculation() {
+            calculationCounter++;
+            const currentCalc = {
+                number: calculationCounter,
+                panel: document.getElementById('selected-panel').textContent,
+                insulation: document.getElementById('selected-insulation').textContent,
+                thickness: document.getElementById('selected-thickness').textContent,
+                area: document.getElementById('selected-area').textContent,
+                color: document.getElementById('selected-color').textContent,
+                profiling: document.getElementById('selected-profiling').textContent,
+                totalPrice: document.getElementById('total-price').textContent,
+                pricePerM2: document.getElementById('price-per-m2').textContent
+            };
+
+            completedCalculations.push(currentCalc);
+            displayCompletedCalculations();
+
+            selections = {
+                panel: null,
+                insulation: null,
+                thickness: null,
+                area: null,
+                color: null,
+                profiling: null
+            };
+
+            document.getElementById('selected-panel').textContent = 'Выберите';
+            document.getElementById('selected-insulation').textContent = 'Выберите';
+            document.getElementById('selected-thickness').textContent = 'Выберите';
+            document.getElementById('selected-area').textContent = 'Выберите';
+            document.getElementById('selected-color').textContent = 'Выберите';
+            document.getElementById('selected-profiling').textContent = 'Выберите';
+            document.getElementById('total-price').textContent = '';
+            document.getElementById('price-per-m2').textContent = '';
+            document.getElementById('area-input').value = '';
+
+            document.querySelectorAll('.selected').forEach(el => el.classList.remove('selected'));
+
+            showStage('stage-panel');
+        }
+
+        function displayCompletedCalculations() {
+            const container = document.getElementById('completed-list');
+            container.innerHTML = '';
+
+            completedCalculations.forEach(calc => {
+                const item = document.createElement('div');
+                item.className = 'completed-calc-item';
+
+                item.innerHTML = `
+                    <div class="completed-calc-header" onclick="toggleDetails(this)">
+                        <span class="calc-number"><span class="toggle-icon">▶</span> Расчёт #${calc.number}</span>
+                        <span class="calc-total">Цена за м²: ${calc.pricePerM2}<br>Всего: ${calc.totalPrice}</span>
+                    </div>
+                    <div class="completed-calc-details">
+                        <div class="calc-detail-item">
+                            <span class="calc-detail-label">Тип панелей:</span>
+                            <span class="calc-detail-value">${calc.panel}</span>
+                        </div>
+                        <div class="calc-detail-item">
+                            <span class="calc-detail-label">Утеплитель:</span>
+                            <span class="calc-detail-value">${calc.insulation}</span>
+                        </div>
+                        <div class="calc-detail-item">
+                            <span class="calc-detail-label">Толщина:</span>
+                            <span class="calc-detail-value">${calc.thickness}</span>
+                        </div>
+                        <div class="calc-detail-item">
+                            <span class="calc-detail-label">Площадь:</span>
+                            <span class="calc-detail-value">${calc.area}</span>
+                        </div>
+                        <div class="calc-detail-item">
+                            <span class="calc-detail-label">Цвет:</span>
+                            <span class="calc-detail-value">${calc.color}</span>
+                        </div>
+                        <div class="calc-detail-item">
+                            <span class="calc-detail-label">Профилирование:</span>
+                            <span class="calc-detail-value">${calc.profiling}</span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function toggleDetails(header) {
+            header.classList.toggle('active');
+            const details = header.nextElementSibling;
+            details.classList.toggle('show');
+        }
+
+        renderColorOptions();
+    </script>
+</body>
+
+</html>

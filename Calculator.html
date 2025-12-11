@@ -68,6 +68,7 @@
         }
 
 
+        /* Main calculator container - holds all stages of the multi-step workflow */
         .calc-container {
             display: flex;
             flex-direction: row;
@@ -77,6 +78,7 @@
         }
 
 
+        /* Parameter block - displays selected values from each stage */
         .container-line {
             width: 100%;
             font-size: var(--font-size-lg);
@@ -1125,6 +1127,7 @@
     </div>
 
     <script>
+        /* Configuration object containing constants used throughout the calculator */
         const CONFIG = {
             MIN_AREA: 35,
             MAX_AREA: 10000,
@@ -1168,6 +1171,16 @@
             { code: '9010', hex: '#F7F9EF', name: 'Чисто-белый', surcharge: 50 },
             { code: 'SteelArt', hex: 'wood', name: 'Рисунок под дерево', isSteelArt: true, surcharge: 200 }
         ];
+
+        /* 
+         * Color palette data structure containing all available RAL colors with:
+         * - code: Color identifier
+         * - hex: Hex color code
+         * - name: Color name in Russian
+         * - isDefault: Whether this is the default color
+         * - isSteelArt: Whether this is the SteelArt special color
+         * - surcharge: Additional cost for this color
+         */
 
 
 // Fetch data from webhook and transform to desired format
@@ -1263,6 +1276,10 @@ let PRICE_DATA;
             }
         };
 
+        /* 
+         * Available thickness options based on panel type and insulation type
+         * This creates the dependency between panel type and insulation type in selection flow
+         */
         const PROFILING_OPTIONS = {
             wall: [
                 { value: '9k', label: '9 канавок' },
@@ -1291,17 +1308,30 @@ let PRICE_DATA;
         let completedCalculations = [];
         let calculationCounter = 0;
 
+        /* 
+         * Function to show the selected stage and hide others in the multi-step workflow
+         * This creates the step-by-step user experience by revealing the next stage
+         */
         function showStage(stageId) {
             document.querySelectorAll('.stage').forEach(stage => stage.classList.remove('active'));
             document.getElementById(stageId).classList.add('active');
         }
 
+        /* 
+         * Panel selection handler - updates the parameter display and progresses to next stage
+         * Dependent on: selections object, parameter display elements, showStage function
+         */
         function selectPanel(type) {
             selections.panel = type;
             document.getElementById('selected-panel').textContent = type === 'wall' ? 'Стеновые' : 'Кровельные';
             showStage('stage-insulation');
         }
 
+        /* 
+         * Insulation selection handler - updates the parameter display, 
+         * renders appropriate thickness options, and progresses to next stage
+         * Dependent on: selections object, THICKNESS_LIST, renderThicknessOptions, showStage
+         */
         function selectInsulation(type) {
             selections.insulation = type;
             document.getElementById('selected-insulation').textContent = type === 'minvata' ? 'Минвата' : 'ППС';
@@ -1309,6 +1339,11 @@ let PRICE_DATA;
             showStage('stage-thickness');
         }
 
+        /* 
+         * Renders thickness options based on panel type and insulation type
+         * Creates dynamic dependency between panel/insulation selection and available thicknesses
+         * Called by: selectInsulation function
+         */
         function renderThicknessOptions() {
             const table = document.getElementById('thickness-table');
             const thicknesses = THICKNESS_LIST[selections.panel][selections.insulation];
@@ -1332,12 +1367,21 @@ let PRICE_DATA;
             }
         }
 
+        /* 
+         * Thickness selection handler - updates the parameter display and progresses to next stage
+         * Dependent on: selections object, parameter display elements, showStage function
+         */
         function selectThickness(value) {
             selections.thickness = value;
             document.getElementById('selected-thickness').textContent = value + ' мм';
             showStage('stage-area');
         }
 
+        /* 
+         * Area validation and selection handler - validates input, updates display, 
+         * renders color options, and progresses to next stage
+         * Dependent on: selections object, CONFIG, renderColorOptions, showStage
+         */
         function selectArea() {
             const input = document.getElementById('area-input');
             const area = parseFloat(input.value);
@@ -1359,6 +1403,11 @@ let PRICE_DATA;
             showStage('stage-color');
         }
 
+        /* 
+         * Renders color options in the color selection stage
+         * Creates dynamic color buttons based on RAL_COLORS data
+         * Called by: selectArea function when moving to color stage
+         */
         function renderColorOptions() {
             const grid = document.getElementById('color-grid-additional');
             grid.innerHTML = '';
@@ -1378,6 +1427,11 @@ let PRICE_DATA;
             document.getElementById('color-standard').title = standardColor.name;
         }
 
+        /* 
+         * Color selection handler - updates the parameter display, 
+         * marks selected color visually, and progresses to profiling stage
+         * Dependent on: selections object, RAL_COLORS, renderProfilingOptions, showStage
+         */
         function selectColor(code) {
             selections.color = code;
             const color = RAL_COLORS.find(c => c.code === code);
@@ -1390,6 +1444,11 @@ let PRICE_DATA;
             showStage('stage-profiling');
         }
 
+        /* 
+         * Renders profiling options based on panel type 
+         * Creates dependency between panel type and available profiling options
+         * Called by: selectColor function when moving to profiling stage
+         */
         function renderProfilingOptions() {
             const table = document.getElementById('profiling-table');
             const options = PROFILING_OPTIONS[selections.panel];
@@ -1413,6 +1472,11 @@ let PRICE_DATA;
             }
         }
 
+        /* 
+         * Profiling selection handler - updates the parameter display, 
+         * calculates final price, and progresses to final stage
+         * Dependent on: selections object, calculatePrice, showStage
+         */
         function selectProfiling(value, label) {
             selections.profiling = value;
             document.getElementById('selected-profiling').textContent = label;
@@ -1427,6 +1491,14 @@ let PRICE_DATA;
             }, 500);
         }
 
+        /* 
+         * Main price calculation function that:
+         * 1. Determines pricing range based on area
+         * 2. Applies color surcharges 
+         * 3. Calculates total price and price per square meter
+         * 4. Updates the display with calculated values
+         * Called by: selectProfiling function when finishing the calculation
+         */
         function calculatePrice() {
             const { panel, insulation, thickness, area, color, profiling } = selections;
 
@@ -1453,6 +1525,11 @@ let PRICE_DATA;
             document.getElementById('price-per-m2').textContent = pricePerM2.toLocaleString('ru-RU') + ' ₽';
         }
 
+        /* 
+         * Finalizes calculation and starts a new calculation process
+         * Stores the completed calculation in history and resets all selections
+         * Dependent on: selections object, completedCalculations, displayCompletedCalculations, showStage
+         */
         function startNewCalculation() {
             calculationCounter++;
             const currentCalc = {
@@ -1494,6 +1571,11 @@ let PRICE_DATA;
             showStage('stage-panel');
         }
 
+        /* 
+         * Displays the history of completed calculations in the user interface
+         * Creates interactive expandable items with all calculation details
+         * Called by: startNewCalculation function when a calculation is completed
+         */
         function displayCompletedCalculations() {
             const container = document.getElementById('completed-list');
             container.innerHTML = '';
@@ -1538,6 +1620,10 @@ let PRICE_DATA;
             });
         }
 
+        /* 
+         * Toggles the visibility of detailed calculation information 
+         * for completed calculations by clicking on their headers
+         */
         function toggleDetails(header) {
             header.classList.toggle('active');
             const details = header.nextElementSibling;

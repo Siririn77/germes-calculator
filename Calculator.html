@@ -713,6 +713,36 @@
             margin-bottom: 12px;
             padding-left: 4px;
         }
+        .history-total {
+            margin-top: 16px;
+            padding: 20px 24px;
+            background: var(--blue);
+            border-radius: var(--radius-sm);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+        }
+        .history-total-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.8);
+            letter-spacing: 0.5px;
+        }
+        .history-total-value {
+            font-size: 24px;
+            font-weight: 800;
+            color: #FFFFFF;
+        }
+        .history-title {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--gray-400);
+            margin-bottom: 12px;
+            padding-left: 4px;
+        }
         .history-list {
             display: flex;
             flex-direction: column;
@@ -1078,6 +1108,10 @@
 <div class="history-section" id="history-section" style="display:none">
     <p class="history-title">История расчётов</p>
     <div class="history-list" id="history-list"></div>
+    <div class="history-total" id="history-total" style="display:none">
+        <span class="history-total-label">Общая стоимость всех расчётов:</span>
+        <span class="history-total-value" id="history-total-value">—</span>
+    </div>
 </div>
 
 <script>
@@ -1574,8 +1608,29 @@ function startNewCalculation() {
 function renderHistory() {
     const section = document.getElementById('history-section');
     const list = document.getElementById('history-list');
+    const totalSection = document.getElementById('history-total');
+    const totalValue = document.getElementById('history-total-value');
     section.style.display = 'block';
     list.innerHTML = '';
+    
+    // Calculate total price of all calculations
+    let grandTotal = 0;
+    completedCalculations.forEach(calc => {
+        const priceStr = calc.totalPrice.replace(/[^\d]/g, '');
+        const price = parseInt(priceStr, 10);
+        if (!isNaN(price)) {
+            grandTotal += price;
+        }
+    });
+    
+    // Show/hide and update total
+    if (completedCalculations.length > 0) {
+        totalSection.style.display = 'flex';
+        totalValue.textContent = grandTotal.toLocaleString('ru-RU') + ' ₽';
+    } else {
+        totalSection.style.display = 'none';
+    }
+    
     completedCalculations.slice().reverse().forEach((calc, reverseIndex) => {
         const item = document.createElement('div');
         item.className = 'history-item';

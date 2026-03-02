@@ -11,33 +11,46 @@
 
 
         :root {
-            --main-border-color: #CECECE;
-            --main-blue-color: #004B97;
-            --main-gray-color: #818181;
-            --main-black-color: #383838;
+            /* Colors */
+            --color-border: #CECECE;
+            --color-primary: #004B97;
+            --color-text-muted: #818181;
+            --color-text: #383838;
+            --color-bg-body: #F5F5F5;
+            --color-bg-white: #FFFFFF;
+            --color-bg-hover: #F0F0F0;
+            --color-bg-hover-alt: #E8E8E8;
+            --color-bg-selected: #E3F2FD;
+            --color-bg-empty: #FAFAFA;
+            --color-white: #FFFFFF;
 
-
-            /* Font size scale using em */
+            /* Font sizes */
             --font-size-xxs: 0.6875em;
-            /* 11px */
             --font-size-xs: 0.75em;
-            /* 12px */
             --font-size-sm: 0.875em;
-            /* 14px */
             --font-size-base: 1em;
-            /* 16px */
             --font-size-md: 1.125em;
-            /* 18px */
             --font-size-lg: 1.25em;
-            /* 20px */
             --font-size-xxl: 1.375em;
-            /* 22px */
             --font-size-xl: 1.5em;
-            /* 24px */
             --font-size-2xl: 1.75em;
-            /* 28px */
             --font-size-4xl: 4em;
-            /* 64px */
+
+            /* Spacing */
+            --spacing-xs: 0.313em;
+            --spacing-sm: 0.5em;
+            --spacing-md: 0.625em;
+            --spacing-lg: 0.938em;
+            --spacing-xl: 1.25em;
+            --spacing-2xl: 1.875em;
+
+            /* Border radius */
+            --radius-sm: 0.25em;
+            --radius-md: 0.5em;
+
+            /* Border */
+            --border-thin: 1px solid var(--color-border);
+            --border-medium: 2px solid var(--color-border);
         }
 
 
@@ -51,8 +64,8 @@
 
         body {
             line-height: 1.6;
-            color: var(--main-black-color);
-            background-color: #f5f5f5;
+            color: var(--color-text);
+            background-color: var(--color-bg-body);
             font-weight: 700;
         }
 
@@ -62,7 +75,7 @@
             display: flex;
             justify-content: center;
             align-content: center;
-            border: 1px solid var(--main-border-color);
+            border: var(--border-thin);
         }
 
 
@@ -87,9 +100,9 @@
         .main-container {
             max-width: 100%;
             margin: 0 auto;
-            background-color: white;
-            padding: 1.875em 0px;
-            border-radius: 0.5em;
+            background-color: var(--color-bg-white);
+            padding: var(--spacing-2xl) 0;
+            border-radius: var(--radius-md);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -103,8 +116,8 @@
             flex-direction: row;
             width: 80%;
             height: 25em;
-            border-right: 1px solid var(--main-border-color);
-            border-left: 1px solid var(--main-border-color);
+            border-right: var(--border-thin);
+            border-left: var(--border-thin);
         }
 
 
@@ -112,7 +125,7 @@
         .container-line {
             width: 100%;
             font-size: var(--font-size-lg);
-            padding: 0px;
+            padding: 0;
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-row: 1;
@@ -121,17 +134,17 @@
 
 
         .selected-value {
-            color: var(--main-blue-color);
+            color: var(--color-primary);
             text-align: start;
             justify-self: start;
-            padding-left: 1.5em;
+            padding-left: var(--spacing-xl);
         }
 
 
         .parameter-block {
             width: 40%;
             height: 100%;
-            border-right: 1px solid var(--main-border-color);
+            border-right: var(--border-thin);
         }
 
 
@@ -146,15 +159,14 @@
             height: 30%;
             display: flex;
             flex-direction: column;
-            padding-left: 1em;
-            padding-top: 1em;
-            border-bottom: 1px solid var(--main-border-color);
+            padding: var(--spacing-lg);
+            border-bottom: var(--border-thin);
         }
 
 
         .total:last-child {
-            border-bottom: 0px;
-            border-top: 1px solid var(--main-border-color);
+            border-bottom: 0;
+            border-top: var(--border-thin);
         }
 
 
@@ -163,23 +175,22 @@
             height: 70%;
             display: flex;
             flex-direction: column;
-            padding-left: 1em;
-            padding-top: 1em;
+            padding: var(--spacing-lg);
         }
 
 
         .option-block-header {
             width: 100%;
             height: 40%;
-            border-bottom: 1px solid var(--main-border-color);
-            padding: 1.25em;
+            border-bottom: var(--border-thin);
+            padding: var(--spacing-xl);
         }
 
 
         .option-block-header.area {
             width: 100%;
             height: 60%;
-            border-bottom: 1px solid var(--main-border-color);
+            border-bottom: var(--border-thin);
         }
 
 
@@ -198,7 +209,7 @@
             display: flex;
             justify-content: center;
             flex-direction: column;
-            padding: 0 1.25em;
+            padding: 0 var(--spacing-xl);
         }
 
 
@@ -212,7 +223,7 @@
 
 
         .blue-highlighted-text {
-            color: var(--main-blue-color);
+            color: var(--color-primary);
         }
 
 
@@ -229,12 +240,12 @@
 
 
         .double-choose-block:hover {
-            background-color: #f0f0f0;
+            background-color: var(--color-bg-hover);
         }
 
 
         .double-choose-block.selected {
-            background-color: #e3f2fd;
+            background-color: var(--color-bg-selected);
         }
 
 
@@ -252,7 +263,7 @@
 
 
         .right-block-border {
-            border-right: 1px solid var(--main-border-color);
+            border-right: var(--border-thin);
         }
 
 
@@ -266,21 +277,21 @@
         .width-option {
             text-align: center;
             vertical-align: middle;
-            border-right: 1px solid var(--main-border-color);
-            border-bottom: 1px solid var(--main-border-color);
+            border-right: var(--border-thin);
+            border-bottom: var(--border-thin);
             cursor: pointer;
             transition: background-color 0.3s;
         }
 
 
         .width-option:hover {
-            background-color: #f0f0f0;
+            background-color: var(--color-bg-hover);
         }
 
 
         .width-option.selected {
-            background-color: #e3f2fd;
-            color: var(--main-blue-color);
+            background-color: var(--color-bg-selected);
+            color: var(--color-primary);
         }
 
 
@@ -296,35 +307,35 @@
 
         .width-option.empty {
             cursor: default;
-            background-color: #fafafa;
+            background-color: var(--color-bg-empty);
         }
 
 
         .width-option.empty:hover {
-            background-color: #fafafa;
+            background-color: var(--color-bg-empty);
         }
 
 
         .area-input {
             width: 100%;
             height: 100%;
-            border: 0px;
+            border: 0;
             font-size: var(--font-size-lg);
-            padding: 1.25em;
-            color: var(--main-black-color);
+            padding: var(--spacing-xl);
+            color: var(--color-text);
             font-weight: 700;
         }
 
 
         .area-input::placeholder {
             font-size: var(--font-size-lg);
-            color: var(--main-gray-color);
+            color: var(--color-text-muted);
         }
 
 
         .area-input:focus-visible {
             outline-width: 2px;
-            outline-color: var(--main-border-color);
+            outline-color: var(--color-border);
         }
 
 
@@ -339,8 +350,8 @@
         .color-type-1 {
             width: 100%;
             height: 65%;
-            padding-top: 1.25em;
-            padding-left: 1.25em;
+            padding-top: var(--spacing-xl);
+            padding-left: var(--spacing-xl);
         }
 
 
@@ -353,13 +364,13 @@
 
 
         .color-type-2-block {
-            padding-top: 0.625em;
-            padding-left: 1.25em;
+            padding-top: var(--spacing-md);
+            padding-left: var(--spacing-xl);
         }
 
 
         .color-button-block {
-            background-color: var(--main-gray-color);
+            background-color: var(--color-text-muted);
             width: 2.5em;
             height: 1em;
             cursor: pointer;
@@ -377,8 +388,8 @@
             display: grid;
             grid-template-columns: repeat(10, 1fr);
             grid-template-rows: repeat(3, 1fr);
-            gap: 0.625em;
-            padding-top: 0.625em;
+            gap: var(--spacing-md);
+            padding-top: var(--spacing-md);
         }
 
 
@@ -404,7 +415,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 1.25em;
+            padding: var(--spacing-xl);
         }
 
 
@@ -418,13 +429,18 @@
         }
 
 
+        .final-message-text {
+            margin-top: var(--spacing-md);
+        }
+
+
         .new-calc-button {
             width: 100%;
-            padding: 1.25em;
-            background-color: var(--main-blue-color);
-            color: white;
+            padding: var(--spacing-xl);
+            background-color: var(--color-primary);
+            color: var(--color-white);
             border: none;
-            border-radius: 0.25em;
+            border-radius: var(--radius-sm);
             font-size: var(--font-size-lg);
             font-weight: 700;
             cursor: pointer;
@@ -439,8 +455,8 @@
 
         .checkmark {
             font-size: var(--font-size-4xl);
-            color: var(--main-blue-color);
-            margin-bottom: 1.25em;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-xl);
         }
 
 
@@ -454,7 +470,7 @@
 
 
         .completed-calculations>*:not(:last-child) {
-            border-bottom: 1px solid var(--main-border-color);
+            border-bottom: var(--border-thin);
         }
 
 
@@ -468,9 +484,9 @@
         /* Parent grid container - defines the main 6-column grid structure */
         .completed-calc-item {
             width: 80%;
-            border-left: 1px solid var(--main-border-color);
-            border-right: 1px solid var(--main-border-color);
-            border-radius: 0.25em;
+            border-left: var(--border-thin);
+            border-right: var(--border-thin);
+            border-radius: var(--radius-sm);
             overflow: hidden;
             display: grid;
             grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -482,24 +498,24 @@
             display: grid;
             grid-template-columns: subgrid;
             grid-column: 1 / -1;
-            padding: 0.938em 1.25em;
+            padding: var(--spacing-lg) var(--spacing-xl);
             cursor: pointer;
-            background-color: #f0f0f0;
+            background-color: var(--color-bg-hover);
             transition: background-color 0.2s;
         }
 
 
         .completed-calc-header:hover {
-            background-color: #e8e8e8;
+            background-color: var(--color-bg-hover-alt);
         }
 
 
         .toggle-icon {
-            margin-right: 0.625em;
+            margin-right: var(--spacing-md);
             transition: transform 0.3s;
             display: inline-block;
             font-size: var(--font-size-sm);
-            color: var(--main-blue-color);
+            color: var(--color-primary);
         }
 
 
@@ -510,7 +526,7 @@
 
         .calc-number {
             font-size: var(--font-size-md);
-            color: var(--main-gray-color);
+            color: var(--color-text-muted);
             display: flex;
             align-items: center;
         }
@@ -518,7 +534,7 @@
 
         .calc-total {
             font-size: var(--font-size-lg);
-            color: var(--main-blue-color);
+            color: var(--color-primary);
             font-weight: bold;
             grid-column: span 2 / -1;
             justify-self: end;
@@ -530,36 +546,36 @@
             display: none;
             grid-template-columns: subgrid;
             grid-column: 1 / -1;
-            padding-top: 0.938em;
-            padding-left: 1em;
-            border-top: 1px solid var(--main-border-color);
+            padding-top: var(--spacing-lg);
+            padding-left: var(--spacing-lg);
+            border-top: var(--border-thin);
             font-size: var(--font-size-sm);
-            background-color: #f0f0f0;
+            background-color: var(--color-bg-hover);
         }
 
 
         .completed-calc-details.show {
             display: grid;
-            gap: 0.313em;
+            gap: var(--spacing-xs);
         }
 
 
         .calc-detail-item {
-            padding: 0.313em 0;
+            padding: var(--spacing-xs) 0;
             display: flex;
             flex-direction: column;
         }
 
 
         .calc-detail-label {
-            color: var(--main-gray-color);
+            color: var(--color-text-muted);
             font-weight: 400;
             font-size: var(--font-size-sm);
         }
 
 
         .calc-detail-value {
-            color: var(--main-black-color);
+            color: var(--color-text);
             font-weight: 700;
         }
 
@@ -587,19 +603,19 @@
 
 
             .option-block-main-part {
-                border-bottom: 0px;
+                border-bottom: 0;
             }
 
 
             .color-type-1-grid {
                 grid-template-columns: repeat(7, 1fr);
                 grid-template-rows: repeat(5, 1fr);
-                padding-top: 0.625em;
+                padding-top: var(--spacing-md);
             }
 
 
             .selected-value {
-                padding-left: 0px;
+                padding-left: 0;
             }
         }
 
@@ -648,17 +664,17 @@
 
 
             .double-choose-block:last-child {
-                border-left: 1px solid var(--main-border-color);
+                border-left: var(--border-thin);
             }
 
 
             .choose-block-table {
-                border-bottom: 1px solid var(--main-border-color);
+                border-bottom: var(--border-thin);
             }
 
 
             .color-block {
-                border-bottom: 1px solid var(--main-border-color);
+                border-bottom: var(--border-thin);
             }
 
 
@@ -720,18 +736,18 @@
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
                 grid-row: 1;
-                gap: 0.313em;
+                gap: var(--spacing-xs);
                 height: auto;
                 flex-direction: initial;
                 justify-content: initial;
-                padding-top: 0.938em;
+                padding-top: var(--spacing-lg);
             }
 
 
             .container-line {
                 grid-template-columns: 1fr;
                 gap: 0.125em;
-                padding: 0px 0px;
+                padding: 0;
                 font-size: var(--font-size-base);
                 text-align: left;
                 grid-row: auto;
@@ -749,12 +765,12 @@
 
             .total {
                 height: auto;
-                padding: 0.938em;
+                padding: var(--spacing-lg);
             }
 
             .calc-detail-item {
                 grid-template-columns: 3fr 2fr;
-                padding: 0em 0em;
+                padding: 0;
             }
 
             .calc-detail-label {
@@ -764,7 +780,7 @@
 
             .option-block-header {
                 height: auto;
-                padding: 0.938em;
+                padding: var(--spacing-lg);
             }
 
 
@@ -790,9 +806,9 @@
                 width: 100%;
                 height: auto;
                 min-height: 9.375em;
-                padding: 1.25em;
+                padding: var(--spacing-xl);
                 border-right: none !important;
-                border-bottom: 1px solid var(--main-border-color);
+                border-bottom: var(--border-thin);
             }
 
 
@@ -813,7 +829,7 @@
 
 
             .width-option {
-                padding: 0.938em 0.625em;
+                padding: var(--spacing-lg) var(--spacing-md);
                 font-size: var(--font-size-sm);
                 height: 6em;
             }
@@ -821,7 +837,7 @@
 
             .area-input {
                 font-size: var(--font-size-base);
-                border-bottom: 1px solid var(--main-border-color);
+                border-bottom: var(--border-thin);
             }
 
 
@@ -832,20 +848,20 @@
 
             .color-type-1 {
                 height: auto;
-                padding: 0.938em;
+                padding: var(--spacing-lg);
             }
 
 
             .color-type-2 {
                 height: auto;
                 flex-direction: column;
-                gap: 0.938em;
-                padding-bottom: 0.938em;
+                gap: var(--spacing-lg);
+                padding-bottom: var(--spacing-lg);
             }
 
 
             .color-type-2-block {
-                padding: 0 0.938em;
+                padding: 0 var(--spacing-lg);
             }
 
 
@@ -853,7 +869,7 @@
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(2em, 1fr));
                 grid-template-rows: auto;
-                gap: 0.5em;
+                gap: var(--spacing-sm);
             }
 
 
@@ -869,10 +885,11 @@
 
 
             .completed-calc-header {
+                grid-template-columns: 1fr 1fr;
                 flex-direction: row;
                 align-items: center;
-                gap: 0.625em;
-                padding: 0.938em;
+                gap: var(--spacing-md);
+                padding: var(--spacing-lg);
             }
 
 
@@ -887,10 +904,10 @@
 
             .completed-calc-details {
                 grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
-                padding-top: 0.938em;
-                padding-left: 1em;
+                padding-top: var(--spacing-lg);
+                padding-left: var(--spacing-lg);
                 font-size: var(--font-size-base);
-                gap: 0.313em;
+                gap: var(--spacing-xs);
             }
 
             .completed-calc-details.show {
@@ -900,7 +917,7 @@
 
             .new-calc-button {
                 font-size: var(--font-size-md);
-                padding: 0.938em;
+                padding: var(--spacing-lg);
             }
 
 
@@ -910,7 +927,7 @@
 
 
             .final-stage-content {
-                padding: 0.938em;
+                padding: var(--spacing-lg);
             }
         }
 
@@ -932,13 +949,13 @@
 
 
             .container-line {
-                padding: 0em 0em;
+                padding: 0;
                 display: grid;
             }
 
 
             .option-block-header {
-                padding: 0.625em;
+                padding: var(--spacing-md);
             }
 
 
@@ -954,7 +971,7 @@
 
 
             .width-option {
-                padding: 0.75em 0.313em;
+                padding: 0.75em var(--spacing-xs);
                 font-size: var(--font-size-xs);
             }
 
@@ -976,7 +993,7 @@
 
 
             .area-subcontainer {
-                padding: 0 0.625em;
+                padding: 0 var(--spacing-md);
             }
         }
 
@@ -1148,7 +1165,7 @@
                         <div class="final-message">
                             <div class="checkmark">✓</div>
                             <h1 class="big-text">Расчёт завершён</h1>
-                            <h1 style="margin-top: 10px;">Спасибо за использование калькулятора!</h1>
+                            <h1 class="final-message-text">Спасибо за использование калькулятора!</h1>
                         </div>
                         <button class="new-calc-button" onclick="startNewCalculation()">
                             + Добавить новый расчёт
@@ -1164,177 +1181,466 @@
         </div>
     </div>
 
-    <script>
-        /* Configuration object containing constants used throughout the calculator */
-        const CONFIG = {
-            MIN_AREA: 35,
-            MAX_AREA: 1000000000,
-            GOFRA_SURCHARGE: 100
+<script>
+    /* Configuration object containing constants used throughout the calculator */
+    const CONFIG = {
+        MIN_AREA: 35,
+        MAX_AREA: 1000000000,
+        GOFRA_SURCHARGE: 100
+    };
+
+
+    const RAL_COLORS = [
+        { code: '9003/9003', hex: '#F4F4F4', name: 'Белый обе стороны', isDefault: true, surcharge: 0 },
+        { code: '9003', hex: '#F4F4F4', name: 'Сигнальный белый', isDefault: false, surcharge: 50 },
+        { code: '1014', hex: '#DDC49A', name: 'Слоновая кость', surcharge: 50 },
+        { code: '1015', hex: '#E6D2B5', name: 'Светлая слоновая кость', surcharge: 50 },
+        { code: '1018', hex: '#FACA30', name: 'Цинково-желтый', surcharge: 50 },
+        { code: '2004', hex: '#E75B12', name: 'Чисто-оранжевый', surcharge: 50 },
+        { code: '3003', hex: '#8D1D2C', name: 'Рубиново-красный', surcharge: 50 },
+        { code: '3005', hex: '#5E2028', name: 'Винно-красный', surcharge: 50 },
+        { code: '3009', hex: '#703731', name: 'Оксид красный', surcharge: 50 },
+        { code: '3011', hex: '#7E292C', name: 'Коричнево-красный', surcharge: 50 },
+        { code: '3020', hex: '#C1121C', name: 'Транспортный красный', surcharge: 50 },
+        { code: '5005', hex: '#154889', name: 'Сигнальный синий', surcharge: 50 },
+        { code: '5015', hex: '#2874B2', name: 'Небесно-голубой', surcharge: 50 },
+        { code: '5021', hex: '#07737A', name: 'Водяной синий', surcharge: 50 },
+        { code: '5024', hex: '#6A93B0', name: 'Пастельный синий', surcharge: 50 },
+        { code: '6002', hex: '#276235', name: 'Лиственно-зеленый', surcharge: 50 },
+        { code: '6005', hex: '#0F4336', name: 'Зеленый мох', surcharge: 50 },
+        { code: '6018', hex: '#48A43F', name: 'Желто-зеленый', surcharge: 50 },
+        { code: '6019', hex: '#B7D9B1', name: 'Пастельный зеленый', surcharge: 50 },
+        { code: '6020', hex: '#354733', name: 'Хромовый зеленый', surcharge: 50 },
+        { code: '6029', hex: '#007243', name: 'Мятно-зеленый', surcharge: 50 },
+        { code: '7004', hex: '#9EA0A1', name: 'Сигнальный серый', surcharge: 50 },
+        { code: '7005', hex: '#6B716F', name: 'Мышино-серый', surcharge: 50 },
+        { code: '7011', hex: '#555D61', name: 'Железно-серый', surcharge: 50 },
+        { code: '7024', hex: '#474A50', name: 'Графитовый серый', surcharge: 50 },
+        { code: '7035', hex: '#CBD0CC', name: 'Светло-серый', surcharge: 50 },
+        { code: '7047', hex: '#CFD0CF', name: 'Телегрей 4', surcharge: 50 },
+        { code: '8017', hex: '#44322D', name: 'Шоколадно-коричневый', surcharge: 50 },
+        { code: '8019', hex: '#3F3A3A', name: 'Серо-коричневый', surcharge: 50 },
+        { code: '8029', hex: '#773C27', name: 'Перламутровый медный', surcharge: 50 },
+        { code: '9002', hex: '#DDDED4', name: 'Серо-белый', surcharge: 50 },
+        { code: '9005', hex: '#0A0A0D', name: 'Черный янтарь', surcharge: 50 },
+        { code: '9006', hex: '#A5A8A6', name: 'Бело-алюминиевый', surcharge: 50 },
+        { code: '9010', hex: '#F7F9EF', name: 'Чисто-белый', surcharge: 50 },
+        { code: 'SteelArt', hex: 'wood', name: 'Рисунок под дерево', isSteelArt: true, surcharge: 200 }
+    ];
+
+
+    /* 
+     * Color palette data structure containing all available RAL colors with:
+     * - code: Color identifier
+     * - hex: Hex color code
+     * - name: Color name in Russian
+     * - isDefault: Whether this is the default color
+     * - isSteelArt: Whether this is the SteelArt special color
+     * - surcharge: Additional cost for this color
+     */
+
+
+
+    // Fetch data from webhook and transform to desired format
+    async function fetchPriceData() {
+        try {
+            const response = await fetch('https://777d.ru/webhook/get-prices-for-script');
+            const data = await response.json();
+
+
+            // Extract the first object from the array
+            const rawData = data[0];
+
+
+            // The webhook data is already in the correct format with up250, up500, over500
+            // Simply pass through the data structure
+            const PRICE_DATA = {
+                wall: {
+                    minvata: rawData.wall.minvata,
+                    pps: rawData.wall.pps
+                },
+                roof: {
+                    minvata: rawData.roof.minvata,
+                    pps: rawData.roof.pps
+                }
+            };
+
+
+            return PRICE_DATA;
+        } catch (error) {
+            console.error('Error fetching price data:', error);
+            return null;
+        }
+    }
+
+
+    // Usage: Initialize PRICE_DATA when page loads
+    let PRICE_DATA;
+
+
+    (async function initPriceData() {
+        PRICE_DATA = await fetchPriceData();
+        console.log('Price data ready:', PRICE_DATA);
+    })();
+
+
+
+    const THICKNESS_LIST = {
+        wall: {
+            minvata: ['40', '50', '60', '80', '100', '120', '150', '200'],
+            pps: ['40', '50', '60', '80', '100', '120', '150']
+        },
+        roof: {
+            minvata: ['60', '80', '100', '120', '150', '200'],
+            pps: ['60', '80', '100', '120', '150', '200']
+        }
+    };
+
+
+    /* 
+     * Available thickness options based on panel type and insulation type
+     * This creates the dependency between panel type and insulation type in selection flow
+     */
+    const PROFILING_OPTIONS = {
+        wall: [
+            { value: '9k', label: '9 канавок' },
+            { value: '5k', label: '5 канавок' },
+            { value: 'smooth', label: 'Гладкий лист' }
+        ],
+        roof: [
+            { value: '9k', label: '9 канавок' },
+            { value: '7k', label: '7 канавок' },
+            { value: '5k', label: '5 канавок' },
+            { value: 'trap', label: 'Трапеция 50/50' },
+            { value: 'micro', label: 'Микрориф 30' },
+            { value: 'smooth', label: 'Гладкий лист' }
+        ]
+    };
+
+
+    let selections = {
+        panel: null,
+        insulation: null,
+        thickness: null,
+        area: null,
+        color: null,
+        profiling: null
+    };
+
+
+    let completedCalculations = [];
+    let calculationCounter = 0;
+
+
+    /* 
+     * Function to show the selected stage and hide others in the multi-step workflow
+     * This creates the step-by-step user experience by revealing the next stage
+     */
+    function showStage(stageId) {
+        document.querySelectorAll('.stage').forEach(stage => stage.classList.remove('active'));
+        document.getElementById(stageId).classList.add('active');
+    }
+
+
+    /* 
+     * Panel selection handler - updates the parameter display and progresses to next stage
+     * Dependent on: selections object, parameter display elements, showStage function
+     */
+    function selectPanel(type) {
+        selections.panel = type;
+        document.getElementById('selected-panel').textContent = type === 'wall' ? 'Стеновые' : 'Кровельные';
+        showStage('stage-insulation');
+    }
+
+
+    /* 
+     * Insulation selection handler - updates the parameter display, 
+     * renders appropriate thickness options, and progresses to next stage
+     * Dependent on: selections object, THICKNESS_LIST, renderThicknessOptions, showStage
+     */
+    function selectInsulation(type) {
+        selections.insulation = type;
+        document.getElementById('selected-insulation').textContent = type === 'minvata' ? 'Минвата' : 'ППС';
+        renderThicknessOptions();
+        showStage('stage-thickness');
+    }
+
+
+    /* 
+     * Renders thickness options based on panel type and insulation type
+     * Creates dynamic dependency between panel/insulation selection and available thicknesses
+     * Called by: selectInsulation function
+     */
+    function renderThicknessOptions() {
+        const table = document.getElementById('thickness-table');
+        const thicknesses = THICKNESS_LIST[selections.panel][selections.insulation];
+
+
+        table.innerHTML = '';
+        const rows = Math.ceil(thicknesses.length / 4);
+
+
+        for (let i = 0; i < rows; i++) {
+            const row = table.insertRow();
+            for (let j = 0; j < 4; j++) {
+                const cell = row.insertCell();
+                const index = i * 4 + j;
+                if (index < thicknesses.length) {
+                    cell.className = 'width-option';
+                    cell.textContent = thicknesses[index] + ' мм';
+                    cell.onclick = () => selectThickness(thicknesses[index]);
+                } else {
+                    cell.className = 'width-option empty';
+                }
+            }
+        }
+    }
+
+
+    /* 
+     * Thickness selection handler - updates the parameter display and progresses to next stage
+     * Dependent on: selections object, parameter display elements, showStage function
+     */
+    function selectThickness(value) {
+        selections.thickness = value;
+        document.getElementById('selected-thickness').textContent = value + ' мм';
+        showStage('stage-area');
+    }
+
+
+    /* 
+     * Area validation and selection handler - validates input, updates display, 
+     * renders color options, and progresses to next stage
+     * Dependent on: selections object, CONFIG, renderColorOptions, showStage
+     */
+    function selectArea() {
+        const input = document.getElementById('area-input');
+        const area = parseFloat(input.value);
+
+
+        if (!Number.isFinite(area)) {
+            alert('Введите корректное число площади');
+            return;
+        } else if (area < CONFIG.MIN_AREA) {
+            alert('Минимальная площадь: ' + CONFIG.MIN_AREA + ' м²');
+            return;
+        } else if (area > CONFIG.MAX_AREA) {
+            alert('Максимальная площадь: ' + CONFIG.MAX_AREA + ' м²');
+            return;
+        }
+
+
+        selections.area = area;
+        document.getElementById('selected-area').textContent = area + ' м²';
+        renderColorOptions();
+        showStage('stage-color');
+    }
+
+
+    /* 
+     * Renders color options in the color selection stage
+     * Creates dynamic color buttons based on RAL_COLORS data
+     * Called by: selectArea function when moving to color stage
+     */
+    function renderColorOptions() {
+        const grid = document.getElementById('color-grid-additional');
+        grid.innerHTML = '';
+
+
+        const additionalColors = RAL_COLORS.filter(c => !c.isDefault && !c.isSteelArt);
+        additionalColors.forEach(color => {
+            const div = document.createElement('div');
+            div.className = 'color-button-block';
+            div.style.backgroundColor = color.hex;
+            div.title = color.name + ' (' + color.code + ')';
+            div.onclick = () => selectColor(color.code);
+            grid.appendChild(div);
+        });
+
+
+        const standardColor = RAL_COLORS.find(c => c.isDefault);
+        document.getElementById('color-standard').style.backgroundColor = standardColor.hex;
+        document.getElementById('color-standard').title = standardColor.name;
+    }
+
+
+    /* 
+     * Color selection handler - updates the parameter display, 
+     * marks selected color visually, and progresses to profiling stage
+     * Dependent on: selections object, RAL_COLORS, renderProfilingOptions, showStage
+     */
+    function selectColor(code) {
+        selections.color = code;
+        const color = RAL_COLORS.find(c => c.code === code);
+        document.getElementById('selected-color').textContent = color.name;
+
+
+        document.querySelectorAll('.color-button-block').forEach(el => el.classList.remove('selected'));
+        event.target.classList.add('selected');
+
+
+        renderProfilingOptions();
+        showStage('stage-profiling');
+    }
+
+
+    /* 
+     * Renders profiling options based on panel type 
+     * Creates dependency between panel type and available profiling options
+     * Called by: selectColor function when moving to profiling stage
+     */
+    function renderProfilingOptions() {
+        const table = document.getElementById('profiling-table');
+        const options = PROFILING_OPTIONS[selections.panel];
+
+
+        table.innerHTML = '';
+        const rows = Math.ceil(options.length / 4);
+
+
+        for (let i = 0; i < rows; i++) {
+            const row = table.insertRow();
+            for (let j = 0; j < 4; j++) {
+                const cell = row.insertCell();
+                const index = i * 4 + j;
+                if (index < options.length) {
+                    cell.className = 'width-option';
+                    cell.textContent = options[index].label;
+                    cell.onclick = () => selectProfiling(options[index].value, options[index].label);
+                } else {
+                    cell.className = 'width-option empty';
+                }
+            }
+        }
+    }
+
+
+    /* 
+     * Profiling selection handler - updates the parameter display, 
+     * calculates final price, and progresses to final stage
+     * Dependent on: selections object, calculatePrice, showStage
+     */
+    function selectProfiling(value, label) {
+        selections.profiling = value;
+        document.getElementById('selected-profiling').textContent = label;
+
+
+        document.querySelectorAll('#profiling-table .width-option').forEach(el => el.classList.remove('selected'));
+        event.target.classList.add('selected');
+
+
+        calculatePrice();
+
+
+        setTimeout(() => {
+            showStage('stage-final');
+        }, 500);
+    }
+
+
+    /* 
+     * Main price calculation function that:
+     * 1. Determines pricing range based on area
+     * 2. Applies color surcharges 
+     * 3. Calculates total price and price per square meter
+     * 4. Updates the display with calculated values
+     * Called by: selectProfiling function when finishing the calculation
+     */
+    function calculatePrice() {
+        const { panel, insulation, thickness, area, color, profiling } = selections;
+
+
+        // Validate all required selections exist
+        if (!panel || !insulation || !thickness || !area || !color || !profiling) {
+            // Optionally clear the price display when incomplete
+            document.getElementById('total-price').textContent = '— ₽';
+            document.getElementById('price-per-m2').textContent = '— ₽';
+            return;
+        }
+
+        // Check if PRICE_DATA has loaded
+        if (!PRICE_DATA) {
+            console.error('Price data not yet loaded');
+            document.getElementById('total-price').textContent = 'Загрузка...';
+            document.getElementById('price-per-m2').textContent = 'Загрузка...';
+            return;
+        }
+
+
+        // Check if the price data path exists
+        if (!PRICE_DATA[panel]) {
+            console.error('Invalid panel type:', panel);
+            return;
+        }
+
+
+        if (!PRICE_DATA[panel][insulation]) {
+            console.error('Invalid insulation type:', insulation, 'for panel:', panel);
+            return;
+        }
+
+
+        if (!PRICE_DATA[panel][insulation][thickness]) {
+            console.error('Invalid thickness:', thickness, 'for', panel, insulation);
+            return;
+        }
+
+
+        const priceRange = PRICE_DATA[panel][insulation][thickness];
+        let basePrice;
+
+
+        if (area <= 250) {
+            basePrice = priceRange.up250;
+        } else if (area <= 500) {
+            basePrice = priceRange.up500;
+        } else {
+            basePrice = priceRange.over500;
+        }
+
+
+        const colorData = RAL_COLORS.find(c => c.code === color);
+        if (!colorData) {
+            console.error('Invalid color code:', color);
+            return;
+        }
+
+
+        const pricePerM2 = basePrice + colorData.surcharge;
+        const totalPrice = Math.round(pricePerM2 * area);
+
+
+        document.getElementById('total-price').textContent = totalPrice.toLocaleString('ru-RU') + ' ₽';
+        document.getElementById('price-per-m2').textContent = pricePerM2.toLocaleString('ru-RU') + ' ₽';
+    }
+
+
+
+    /* 
+     * Finalizes calculation and starts a new calculation process
+     * Stores the completed calculation in history and resets all selections
+     * Dependent on: selections object, completedCalculations, displayCompletedCalculations, showStage
+     */
+    function startNewCalculation() {
+        calculationCounter++;
+        const currentCalc = {
+            number: calculationCounter,
+            panel: document.getElementById('selected-panel').textContent,
+            insulation: document.getElementById('selected-insulation').textContent,
+            thickness: document.getElementById('selected-thickness').textContent,
+            area: document.getElementById('selected-area').textContent,
+            color: document.getElementById('selected-color').textContent,
+            profiling: document.getElementById('selected-profiling').textContent,
+            totalPrice: document.getElementById('total-price').textContent,
+            pricePerM2: document.getElementById('price-per-m2').textContent
         };
 
-        const RAL_COLORS = [
-            { code: '9003/9003', hex: '#F4F4F4', name: 'Белый обе стороны', isDefault: true, surcharge: 0 },
-            { code: '9003', hex: '#F4F4F4', name: 'Сигнальный белый', isDefault: false, surcharge: 50 },
-            { code: '1014', hex: '#DDC49A', name: 'Слоновая кость', surcharge: 50 },
-            { code: '1015', hex: '#E6D2B5', name: 'Светлая слоновая кость', surcharge: 50 },
-            { code: '1018', hex: '#FACA30', name: 'Цинково-желтый', surcharge: 50 },
-            { code: '2004', hex: '#E75B12', name: 'Чисто-оранжевый', surcharge: 50 },
-            { code: '3003', hex: '#8D1D2C', name: 'Рубиново-красный', surcharge: 50 },
-            { code: '3005', hex: '#5E2028', name: 'Винно-красный', surcharge: 50 },
-            { code: '3009', hex: '#703731', name: 'Оксид красный', surcharge: 50 },
-            { code: '3011', hex: '#7E292C', name: 'Коричнево-красный', surcharge: 50 },
-            { code: '3020', hex: '#C1121C', name: 'Транспортный красный', surcharge: 50 },
-            { code: '5005', hex: '#154889', name: 'Сигнальный синий', surcharge: 50 },
-            { code: '5015', hex: '#2874B2', name: 'Небесно-голубой', surcharge: 50 },
-            { code: '5021', hex: '#07737A', name: 'Водяной синий', surcharge: 50 },
-            { code: '5024', hex: '#6A93B0', name: 'Пастельный синий', surcharge: 50 },
-            { code: '6002', hex: '#276235', name: 'Лиственно-зеленый', surcharge: 50 },
-            { code: '6005', hex: '#0F4336', name: 'Зеленый мох', surcharge: 50 },
-            { code: '6018', hex: '#48A43F', name: 'Желто-зеленый', surcharge: 50 },
-            { code: '6019', hex: '#B7D9B1', name: 'Пастельный зеленый', surcharge: 50 },
-            { code: '6020', hex: '#354733', name: 'Хромовый зеленый', surcharge: 50 },
-            { code: '6029', hex: '#007243', name: 'Мятно-зеленый', surcharge: 50 },
-            { code: '7004', hex: '#9EA0A1', name: 'Сигнальный серый', surcharge: 50 },
-            { code: '7005', hex: '#6B716F', name: 'Мышино-серый', surcharge: 50 },
-            { code: '7011', hex: '#555D61', name: 'Железно-серый', surcharge: 50 },
-            { code: '7024', hex: '#474A50', name: 'Графитовый серый', surcharge: 50 },
-            { code: '7035', hex: '#CBD0CC', name: 'Светло-серый', surcharge: 50 },
-            { code: '7047', hex: '#CFD0CF', name: 'Телегрей 4', surcharge: 50 },
-            { code: '8017', hex: '#44322D', name: 'Шоколадно-коричневый', surcharge: 50 },
-            { code: '8019', hex: '#3F3A3A', name: 'Серо-коричневый', surcharge: 50 },
-            { code: '8029', hex: '#773C27', name: 'Перламутровый медный', surcharge: 50 },
-            { code: '9002', hex: '#DDDED4', name: 'Серо-белый', surcharge: 50 },
-            { code: '9005', hex: '#0A0A0D', name: 'Черный янтарь', surcharge: 50 },
-            { code: '9006', hex: '#A5A8A6', name: 'Бело-алюминиевый', surcharge: 50 },
-            { code: '9010', hex: '#F7F9EF', name: 'Чисто-белый', surcharge: 50 },
-            { code: 'SteelArt', hex: 'wood', name: 'Рисунок под дерево', isSteelArt: true, surcharge: 200 }
-        ];
 
-        /* 
-         * Color palette data structure containing all available RAL colors with:
-         * - code: Color identifier
-         * - hex: Hex color code
-         * - name: Color name in Russian
-         * - isDefault: Whether this is the default color
-         * - isSteelArt: Whether this is the SteelArt special color
-         * - surcharge: Additional cost for this color
-         */
+        completedCalculations.push(currentCalc);
+        displayCompletedCalculations();
 
 
-        // Fetch data from webhook and transform to desired format
-        async function fetchPriceData() {
-            try {
-                const response = await fetch('https://777d.ru/webhook/get-prices-for-script');
-                const data = await response.json();
-
-                // Extract the first object from the array
-                const rawData = data[0];
-
-                // Transform the data structure
-                const PRICE_DATA = {
-                    wall: {
-                        minvata: transformWallData(rawData.wall.minvata),
-                        pps: transformWallData(rawData.wall.pps)
-                    },
-                    roof: {
-                        minvata: transformRoofMinvata(rawData.roof.minvata),
-                        pps: transformRoofPps(rawData.roof.pps)
-                    }
-                };
-
-                return PRICE_DATA;
-            } catch (error) {
-                console.error('Error fetching price data:', error);
-                return null;
-            }
-        }
-
-        // Transform wall data (metal_0_5 and metal_0_4 to up250, up500, over500)
-        function transformWallData(wallData) {
-            const transformed = {};
-
-            for (const [thickness, prices] of Object.entries(wallData)) {
-                transformed[thickness] = {
-                    up250: prices.metal_0_5,
-                    up500: prices.metal_0_4,
-                    over500: prices.metal_0_4 - 40  // Adjust this calculation as needed
-                };
-            }
-
-            return transformed;
-        }
-
-        // Transform roof minvata data
-        function transformRoofMinvata(roofData) {
-            const transformed = {};
-
-            for (const [thickness, prices] of Object.entries(roofData)) {
-                transformed[thickness] = {
-                    up250: prices.up150,
-                    up500: prices.up500,
-                    over500: prices.over500
-                };
-            }
-
-            return transformed;
-        }
-
-        // Transform roof pps data
-        function transformRoofPps(roofData) {
-            const transformed = {};
-
-            for (const [thickness, prices] of Object.entries(roofData)) {
-                transformed[thickness] = {
-                    up250: prices.up500 + 80,  // Adjust this calculation as needed
-                    up500: prices.up500,
-                    over500: prices.over500
-                };
-            }
-
-            return transformed;
-        }
-
-        // Usage: Initialize PRICE_DATA when page loads
-        let PRICE_DATA;
-
-        (async function initPriceData() {
-            PRICE_DATA = await fetchPriceData();
-            console.log('Price data ready:', PRICE_DATA);
-        })();
-
-
-        const THICKNESS_LIST = {
-            wall: {
-                minvata: ['40', '50', '60', '80', '100', '120', '150', '200'],
-                pps: ['40', '50', '60', '80', '100', '120', '150']
-            },
-            roof: {
-                minvata: ['60', '80', '100', '120', '150', '200'],
-                pps: ['60', '80', '100', '120', '150', '200']
-            }
-        };
-
-        /* 
-         * Available thickness options based on panel type and insulation type
-         * This creates the dependency between panel type and insulation type in selection flow
-         */
-        const PROFILING_OPTIONS = {
-            wall: [
-                { value: '9k', label: '9 канавок' },
-                { value: '5k', label: '5 канавок' },
-                { value: 'smooth', label: 'Гладкий лист' }
-            ],
-            roof: [
-                { value: '9k', label: '9 канавок' },
-                { value: '7k', label: '7 канавок' },
-                { value: '5k', label: '5 канавок' },
-                { value: 'trap', label: 'Трапеция 50/50' },
-                { value: 'micro', label: 'Микрориф 30' },
-                { value: 'smooth', label: 'Гладкий лист' }
-            ]
-        };
-
-        let selections = {
+        selections = {
             panel: null,
             insulation: null,
             thickness: null,
@@ -1343,370 +1649,104 @@
             profiling: null
         };
 
-        let completedCalculations = [];
-        let calculationCounter = 0;
 
-        /* 
-         * Function to show the selected stage and hide others in the multi-step workflow
-         * This creates the step-by-step user experience by revealing the next stage
-         */
-        function showStage(stageId) {
-            document.querySelectorAll('.stage').forEach(stage => stage.classList.remove('active'));
-            document.getElementById(stageId).classList.add('active');
-        }
+        document.getElementById('selected-panel').textContent = 'Выберите';
+        document.getElementById('selected-insulation').textContent = 'Выберите';
+        document.getElementById('selected-thickness').textContent = 'Выберите';
+        document.getElementById('selected-area').textContent = 'Выберите';
+        document.getElementById('selected-color').textContent = 'Выберите';
+        document.getElementById('selected-profiling').textContent = 'Выберите';
+        document.getElementById('total-price').textContent = '';
+        document.getElementById('price-per-m2').textContent = '';
+        document.getElementById('area-input').value = '';
 
-        /* 
-         * Panel selection handler - updates the parameter display and progresses to next stage
-         * Dependent on: selections object, parameter display elements, showStage function
-         */
-        function selectPanel(type) {
-            selections.panel = type;
-            document.getElementById('selected-panel').textContent = type === 'wall' ? 'Стеновые' : 'Кровельные';
-            showStage('stage-insulation');
-        }
 
-        /* 
-         * Insulation selection handler - updates the parameter display, 
-         * renders appropriate thickness options, and progresses to next stage
-         * Dependent on: selections object, THICKNESS_LIST, renderThicknessOptions, showStage
-         */
-        function selectInsulation(type) {
-            selections.insulation = type;
-            document.getElementById('selected-insulation').textContent = type === 'minvata' ? 'Минвата' : 'ППС';
-            renderThicknessOptions();
-            showStage('stage-thickness');
-        }
+        document.querySelectorAll('.selected').forEach(el => el.classList.remove('selected'));
 
-        /* 
-         * Renders thickness options based on panel type and insulation type
-         * Creates dynamic dependency between panel/insulation selection and available thicknesses
-         * Called by: selectInsulation function
-         */
-        function renderThicknessOptions() {
-            const table = document.getElementById('thickness-table');
-            const thicknesses = THICKNESS_LIST[selections.panel][selections.insulation];
 
-            table.innerHTML = '';
-            const rows = Math.ceil(thicknesses.length / 4);
+        showStage('stage-panel');
+    }
 
-            for (let i = 0; i < rows; i++) {
-                const row = table.insertRow();
-                for (let j = 0; j < 4; j++) {
-                    const cell = row.insertCell();
-                    const index = i * 4 + j;
-                    if (index < thicknesses.length) {
-                        cell.className = 'width-option';
-                        cell.textContent = thicknesses[index] + ' мм';
-                        cell.onclick = () => selectThickness(thicknesses[index]);
-                    } else {
-                        cell.className = 'width-option empty';
-                    }
-                }
-            }
-        }
 
-        /* 
-         * Thickness selection handler - updates the parameter display and progresses to next stage
-         * Dependent on: selections object, parameter display elements, showStage function
-         */
-        function selectThickness(value) {
-            selections.thickness = value;
-            document.getElementById('selected-thickness').textContent = value + ' мм';
-            showStage('stage-area');
-        }
+    /* 
+     * Displays the history of completed calculations in the user interface
+     * Creates interactive expandable items with all calculation details
+     * Called by: startNewCalculation function when a calculation is completed
+     */
+    function displayCompletedCalculations() {
+        const container = document.getElementById('completed-list');
+        container.innerHTML = '';
 
-        /* 
-         * Area validation and selection handler - validates input, updates display, 
-         * renders color options, and progresses to next stage
-         * Dependent on: selections object, CONFIG, renderColorOptions, showStage
-         */
-        function selectArea() {
-            const input = document.getElementById('area-input');
-            const area = parseFloat(input.value);
 
-            if (!Number.isFinite(area)) {
-                alert('Введите корректное число площади');
-                return;
-            } else if (area < CONFIG.MIN_AREA) {
-                alert('Минимальная площадь: ' + CONFIG.MIN_AREA + ' м²');
-                return;
-            } else if (area > CONFIG.MAX_AREA) {
-                alert('Максимальная площадь: ' + CONFIG.MAX_AREA + ' м²');
-                return;
-            }
-
-            selections.area = area;
-            document.getElementById('selected-area').textContent = area + ' м²';
-            renderColorOptions();
-            showStage('stage-color');
-        }
-
-        /* 
-         * Renders color options in the color selection stage
-         * Creates dynamic color buttons based on RAL_COLORS data
-         * Called by: selectArea function when moving to color stage
-         */
-        function renderColorOptions() {
-            const grid = document.getElementById('color-grid-additional');
-            grid.innerHTML = '';
-
-            const additionalColors = RAL_COLORS.filter(c => !c.isDefault && !c.isSteelArt);
-            additionalColors.forEach(color => {
-                const div = document.createElement('div');
-                div.className = 'color-button-block';
-                div.style.backgroundColor = color.hex;
-                div.title = color.name + ' (' + color.code + ')';
-                div.onclick = () => selectColor(color.code);
-                grid.appendChild(div);
-            });
-
-            const standardColor = RAL_COLORS.find(c => c.isDefault);
-            document.getElementById('color-standard').style.backgroundColor = standardColor.hex;
-            document.getElementById('color-standard').title = standardColor.name;
-        }
-
-        /* 
-         * Color selection handler - updates the parameter display, 
-         * marks selected color visually, and progresses to profiling stage
-         * Dependent on: selections object, RAL_COLORS, renderProfilingOptions, showStage
-         */
-        function selectColor(code) {
-            selections.color = code;
-            const color = RAL_COLORS.find(c => c.code === code);
-            document.getElementById('selected-color').textContent = color.name;
-
-            document.querySelectorAll('.color-button-block').forEach(el => el.classList.remove('selected'));
-            event.target.classList.add('selected');
-
-            renderProfilingOptions();
-            showStage('stage-profiling');
-        }
-
-        /* 
-         * Renders profiling options based on panel type 
-         * Creates dependency between panel type and available profiling options
-         * Called by: selectColor function when moving to profiling stage
-         */
-        function renderProfilingOptions() {
-            const table = document.getElementById('profiling-table');
-            const options = PROFILING_OPTIONS[selections.panel];
-
-            table.innerHTML = '';
-            const rows = Math.ceil(options.length / 4);
-
-            for (let i = 0; i < rows; i++) {
-                const row = table.insertRow();
-                for (let j = 0; j < 4; j++) {
-                    const cell = row.insertCell();
-                    const index = i * 4 + j;
-                    if (index < options.length) {
-                        cell.className = 'width-option';
-                        cell.textContent = options[index].label;
-                        cell.onclick = () => selectProfiling(options[index].value, options[index].label);
-                    } else {
-                        cell.className = 'width-option empty';
-                    }
-                }
-            }
-        }
-
-        /* 
-         * Profiling selection handler - updates the parameter display, 
-         * calculates final price, and progresses to final stage
-         * Dependent on: selections object, calculatePrice, showStage
-         */
-        function selectProfiling(value, label) {
-            selections.profiling = value;
-            document.getElementById('selected-profiling').textContent = label;
-
-            document.querySelectorAll('#profiling-table .width-option').forEach(el => el.classList.remove('selected'));
-            event.target.classList.add('selected');
-
-            calculatePrice();
-
-            setTimeout(() => {
-                showStage('stage-final');
-            }, 500);
-        }
-
-        /* 
-         * Main price calculation function that:
-         * 1. Determines pricing range based on area
-         * 2. Applies color surcharges 
-         * 3. Calculates total price and price per square meter
-         * 4. Updates the display with calculated values
-         * Called by: selectProfiling function when finishing the calculation
-         */
-        function calculatePrice() {
-            const { panel, insulation, thickness, area, color, profiling } = selections;
-
-            // Validate all required selections exist
-            if (!panel || !insulation || !thickness || !area || !color || !profiling) {
-                // Optionally clear the price display when incomplete
-                document.getElementById('total-price').textContent = '— ₽';
-                document.getElementById('price-per-m2').textContent = '— ₽';
-                return;
-            }
-
-            // Check if the price data path exists
-            if (!PRICE_DATA[panel]) {
-                console.error('Invalid panel type:', panel);
-                return;
-            }
-
-            if (!PRICE_DATA[panel][insulation]) {
-                console.error('Invalid insulation type:', insulation, 'for panel:', panel);
-                return;
-            }
-
-            if (!PRICE_DATA[panel][insulation][thickness]) {
-                console.error('Invalid thickness:', thickness, 'for', panel, insulation);
-                return;
-            }
-
-            const priceRange = PRICE_DATA[panel][insulation][thickness];
-            let basePrice;
-
-            if (area <= 250) {
-                basePrice = priceRange.up250;
-            } else if (area <= 500) {
-                basePrice = priceRange.up500;
-            } else {
-                basePrice = priceRange.over500;
-            }
-
-            const colorData = RAL_COLORS.find(c => c.code === color);
-            if (!colorData) {
-                console.error('Invalid color code:', color);
-                return;
-            }
-
-            const pricePerM2 = basePrice + colorData.surcharge;
-            const totalPrice = Math.round(pricePerM2 * area);
-
-            document.getElementById('total-price').textContent = totalPrice.toLocaleString('ru-RU') + ' ₽';
-            document.getElementById('price-per-m2').textContent = pricePerM2.toLocaleString('ru-RU') + ' ₽';
+        // Show/hide border on parent container based on calculations
+        const superContainer = container.closest('.super-container-old-calc');
+        if (completedCalculations.length > 0) {
+            superContainer.style.borderBottom = '1px solid var(--color-border)';
+        } else {
+            superContainer.style.border = 'none';
         }
 
 
-        /* 
-         * Finalizes calculation and starts a new calculation process
-         * Stores the completed calculation in history and resets all selections
-         * Dependent on: selections object, completedCalculations, displayCompletedCalculations, showStage
-         */
-        function startNewCalculation() {
-            calculationCounter++;
-            const currentCalc = {
-                number: calculationCounter,
-                panel: document.getElementById('selected-panel').textContent,
-                insulation: document.getElementById('selected-insulation').textContent,
-                thickness: document.getElementById('selected-thickness').textContent,
-                area: document.getElementById('selected-area').textContent,
-                color: document.getElementById('selected-color').textContent,
-                profiling: document.getElementById('selected-profiling').textContent,
-                totalPrice: document.getElementById('total-price').textContent,
-                pricePerM2: document.getElementById('price-per-m2').textContent
-            };
+        completedCalculations.forEach(calc => {
+            const item = document.createElement('div');
+            item.className = 'completed-calc-item-super-container';
 
-            completedCalculations.push(currentCalc);
-            displayCompletedCalculations();
 
-            selections = {
-                panel: null,
-                insulation: null,
-                thickness: null,
-                area: null,
-                color: null,
-                profiling: null
-            };
-
-            document.getElementById('selected-panel').textContent = 'Выберите';
-            document.getElementById('selected-insulation').textContent = 'Выберите';
-            document.getElementById('selected-thickness').textContent = 'Выберите';
-            document.getElementById('selected-area').textContent = 'Выберите';
-            document.getElementById('selected-color').textContent = 'Выберите';
-            document.getElementById('selected-profiling').textContent = 'Выберите';
-            document.getElementById('total-price').textContent = '';
-            document.getElementById('price-per-m2').textContent = '';
-            document.getElementById('area-input').value = '';
-
-            document.querySelectorAll('.selected').forEach(el => el.classList.remove('selected'));
-
-            showStage('stage-panel');
-        }
-
-        /* 
-         * Displays the history of completed calculations in the user interface
-         * Creates interactive expandable items with all calculation details
-         * Called by: startNewCalculation function when a calculation is completed
-         */
-        function displayCompletedCalculations() {
-            const container = document.getElementById('completed-list');
-            container.innerHTML = '';
-
-            // Show/hide border on parent container based on calculations
-            const superContainer = container.closest('.super-container-old-calc');
-            if (completedCalculations.length > 0) {
-                superContainer.style.borderBottom = '1px solid var(--main-border-color)';
-            } else {
-                superContainer.style.border = 'none';
-            }
-
-            completedCalculations.forEach(calc => {
-                const item = document.createElement('div');
-                item.className = 'completed-calc-item-super-container';
-
-                item.innerHTML = `
-                <div class="completed-calc-item">
-                    <div class="completed-calc-header" onclick="toggleDetails(this)">
-                        <span class="calc-number"><span class="toggle-icon">▶</span> Расчёт ${calc.number}</span>
-                        <span class="calc-total">Цена за м²: ${calc.pricePerM2}<br>Всего: ${calc.totalPrice}</span>
+            item.innerHTML = `
+            <div class="completed-calc-item">
+                <div class="completed-calc-header" onclick="toggleDetails(this)">
+                    <span class="calc-number"><span class="toggle-icon">▶</span> Расчёт ${calc.number}</span>
+                    <span class="calc-total">Цена за м²: ${calc.pricePerM2}<br>Всего: ${calc.totalPrice}</span>
+                </div>
+                <div class="completed-calc-details">
+                    <div class="calc-detail-item">
+                        <span class="calc-detail-label">Тип панелей:</span>
+                        <span class="calc-detail-value">${calc.panel}</span>
                     </div>
-                    <div class="completed-calc-details">
-                        <div class="calc-detail-item">
-                            <span class="calc-detail-label">Тип панелей:</span>
-                            <span class="calc-detail-value">${calc.panel}</span>
-                        </div>
-                        <div class="calc-detail-item">
-                            <span class="calc-detail-label">Утеплитель:</span>
-                            <span class="calc-detail-value">${calc.insulation}</span>
-                        </div>
-                        <div class="calc-detail-item">
-                            <span class="calc-detail-label">Толщина:</span>
-                            <span class="calc-detail-value">${calc.thickness}</span>
-                        </div>
-                        <div class="calc-detail-item">
-                            <span class="calc-detail-label">Площадь:</span>
-                            <span class="calc-detail-value">${calc.area}</span>
-                        </div>
-                        <div class="calc-detail-item">
-                            <span class="calc-detail-label">Цвет:</span>
-                            <span class="calc-detail-value">${calc.color}</span>
-                        </div>
-                        <div class="calc-detail-item">
-                            <span class="calc-detail-label">Профилирование:</span>
-                            <span class="calc-detail-value">${calc.profiling}</span>
-                        </div>
+                    <div class="calc-detail-item">
+                        <span class="calc-detail-label">Утеплитель:</span>
+                        <span class="calc-detail-value">${calc.insulation}</span>
                     </div>
-              </div>
+                    <div class="calc-detail-item">
+                        <span class="calc-detail-label">Толщина:</span>
+                        <span class="calc-detail-value">${calc.thickness}</span>
+                    </div>
+                    <div class="calc-detail-item">
+                        <span class="calc-detail-label">Площадь:</span>
+                        <span class="calc-detail-value">${calc.area}</span>
+                    </div>
+                    <div class="calc-detail-item">
+                        <span class="calc-detail-label">Цвет:</span>
+                        <span class="calc-detail-value">${calc.color}</span>
+                    </div>
+                    <div class="calc-detail-item">
+                        <span class="calc-detail-label">Профилирование:</span>
+                        <span class="calc-detail-value">${calc.profiling}</span>
+                    </div>
+                </div>
+          </div>
 
-                `;
-                container.appendChild(item);
-            });
-        }
 
-        /* 
-         * Toggles the visibility of detailed calculation information 
-         * for completed calculations by clicking on their headers
-         */
-        function toggleDetails(header) {
-            header.classList.toggle('active');
-            const details = header.nextElementSibling;
-            details.classList.toggle('show');
-        }
+            `;
+            container.appendChild(item);
+        });
+    }
 
-        renderColorOptions();
-    </script>
+
+    /* 
+     * Toggles the visibility of detailed calculation information 
+     * for completed calculations by clicking on their headers
+     */
+    function toggleDetails(header) {
+        header.classList.toggle('active');
+        const details = header.nextElementSibling;
+        details.classList.toggle('show');
+    }
+
+
+    renderColorOptions();
+</script>
+
 </body>
 
 </html>

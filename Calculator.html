@@ -136,6 +136,24 @@
             background: var(--blue-light);
             transform: scale(1.1);
         }
+
+        /* Progress step animations */
+        .progress-step.active .step-dot {
+            animation: stepPulse 2s ease-in-out infinite;
+        }
+        @keyframes stepPulse {
+            0%, 100% { box-shadow: 0 0 0 4px rgba(0,87,184,0.18); }
+            50% { box-shadow: 0 0 0 8px rgba(0,87,184,0.1); }
+        }
+
+        .progress-step.done .step-dot {
+            animation: stepDone 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes stepDone {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
         .step-label {
             font-size: 10px;
             font-weight: 600;
@@ -144,6 +162,15 @@
             text-align: center;
             letter-spacing: 0.3px;
             white-space: nowrap;
+            transition: transform 0.3s ease;
+        }
+        .progress-step.active .step-label {
+            animation: labelBounce 0.5s ease;
+        }
+        @keyframes labelBounce {
+            0%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-3px); }
+            60% { transform: translateY(-1px); }
         }
         .progress-step.active .step-label,
         .progress-step.done .step-label { color: var(--blue); }
@@ -260,20 +287,59 @@
         }
         .stage.active {
             display: flex;
-            animation: fadeSlide 0.28s ease forwards;
+            animation: stageEnter 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
         .stage.back-active {
             display: flex;
-            animation: fadeSlideBack 0.28s ease forwards;
+            animation: stageEnterBack 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
 
-        @keyframes fadeSlide {
-            from { opacity: 0; transform: translateX(16px); }
-            to   { opacity: 1; transform: translateX(0); }
+        @keyframes stageEnter {
+            from { opacity: 0; transform: translateX(30px) scale(0.96); }
+            to   { opacity: 1; transform: translateX(0) scale(1); }
         }
-        @keyframes fadeSlideBack {
-            from { opacity: 0; transform: translateX(-16px); }
-            to   { opacity: 1; transform: translateX(0); }
+        @keyframes stageEnterBack {
+            from { opacity: 0; transform: translateX(-30px) scale(0.96); }
+            to   { opacity: 1; transform: translateX(0) scale(1); }
+        }
+
+        /* Staggered content animations for grids */
+        .stage.active .choice-card,
+        .stage.active .option-cell,
+        .stage.active .color-card {
+            opacity: 0;
+            transform: translateY(15px) scale(0.9);
+            animation: itemPopIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .stage.active .choice-card:nth-child(1),
+        .stage.active .option-cell:nth-child(1),
+        .stage.active .color-card:nth-child(1) { animation-delay: 0.05s; }
+        .stage.active .choice-card:nth-child(2),
+        .stage.active .option-cell:nth-child(2),
+        .stage.active .color-card:nth-child(2) { animation-delay: 0.10s; }
+        .stage.active .option-cell:nth-child(3) { animation-delay: 0.15s; }
+        .stage.active .option-cell:nth-child(4) { animation-delay: 0.20s; }
+        .stage.active .option-cell:nth-child(5) { animation-delay: 0.25s; }
+        .stage.active .option-cell:nth-child(6) { animation-delay: 0.30s; }
+        .stage.active .option-cell:nth-child(7) { animation-delay: 0.35s; }
+        .stage.active .option-cell:nth-child(8) { animation-delay: 0.40s; }
+
+        @keyframes itemPopIn {
+            from { opacity: 0; transform: translateY(15px) scale(0.9); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Selection pop animation */
+        .choice-card.selected,
+        .option-cell.selected,
+        .color-card.selected {
+            animation: selectPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+        }
+        @keyframes selectPop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         .stage-header {
@@ -471,7 +537,7 @@
         }
         .area-input::placeholder { font-size: 15px; font-weight: 400; color: var(--gray-200); }
         .area-unit {
-            padding: 14px 18px;
+            padding: 19px 18px;
             font-size: 15px;
             font-weight: 600;
             color: var(--gray-400);
@@ -643,28 +709,88 @@
             font-size: 32px;
             color: white;
             box-shadow: 0 8px 24px rgba(0,75,151,0.30);
-            animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+            animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1), celebratePulse 1s ease-in-out 0.5s infinite;
+        }
+        
+        @keyframes celebratePulse {
+            0%, 100% { box-shadow: 0 8px 24px rgba(0,75,151,0.30); }
+            50% { box-shadow: 0 8px 32px rgba(0,75,151,0.45), 0 0 0 8px rgba(0,75,151,0.1); }
+        }
+        
+        .final-title {
+            animation: slideUpFade 0.5s ease 0.2s both;
+        }
+        
+        .final-subtitle {
+            animation: slideUpFade 0.5s ease 0.3s both;
+        }
+        
+        .final-actions {
+            animation: slideUpFade 0.5s ease 0.4s both;
+        }
+        
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .new-calc-btn:hover { background: var(--blue-light); }
+        .new-calc-btn:active { transform: scale(0.96); }
+        .edit-calc-btn:hover {
+            background: var(--blue-pale);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,75,151,0.2);
+        }
+        .edit-calc-btn:active { transform: translateY(0); }
+        
+        /* Sidebar value animations */
+        .param-value {
+            animation: valueChange 0.3s ease;
+        }
+        @keyframes valueChange {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); color: var(--blue); }
+            100% { transform: scale(1); }
+        }
+        
+        .total-value {
+            animation: priceUpdate 0.4s ease;
+        }
+        @keyframes priceUpdate {
+            0% { transform: translateY(-5px); opacity: 0.5; }
+            100% { transform: translateY(0); opacity: 1; }
         }
         @keyframes popIn {
             from { transform: scale(0); opacity: 0; }
             to   { transform: scale(1); opacity: 1; }
         }
+        @keyframes celebratePulse {
+            0%, 100% { box-shadow: 0 8px 24px rgba(0,75,151,0.30); }
+            50% { box-shadow: 0 8px 32px rgba(0,75,151,0.45), 0 0 0 8px rgba(0,75,151,0.1); }
+        }
         .final-title {
             font-size: 22px;
             font-weight: 800;
             color: var(--gray-800);
+            animation: slideUpFade 0.5s ease 0.2s both;
+        }
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .final-subtitle {
             font-size: 14px;
             color: var(--gray-400);
             font-weight: 400;
             max-width: 300px;
+            animation: slideUpFade 0.5s ease 0.3s both;
         }
         .final-actions {
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
             justify-content: center;
+            animation: slideUpFade 0.5s ease 0.4s both;
         }
         .new-calc-btn {
             margin-top: 8px;
@@ -677,10 +803,22 @@
             font-weight: 700;
             font-family: 'Rubik', sans-serif;
             cursor: pointer;
-            transition: background var(--transition);
+            transition: background var(--transition), transform 0.15s ease;
             letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+        .new-calc-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
         }
         .new-calc-btn:hover { background: var(--blue-light); }
+        .new-calc-btn:hover::before { left: 100%; }
+        .new-calc-btn:active { transform: scale(0.96); }
         .edit-calc-btn {
             margin-top: 8px;
             padding: 14px 36px;
@@ -697,13 +835,40 @@
         }
         .edit-calc-btn:hover {
             background: var(--blue-pale);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,75,151,0.2);
+        }
+        .edit-calc-btn:active { transform: translateY(0); }
+        
+        /* Celebration confetti particles */
+        .confetti {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 2px;
+            animation: confettiFall 1.5s ease-out forwards;
+        }
+        @keyframes confettiFall {
+            0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100px) rotate(720deg); opacity: 0; }
         }
 
         /* ── Completed Calculations ── */
         .history-section {
             max-width: 960px;
             margin: 28px auto 0;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        
+        /* Animation for hiding the entire history section - matches stage exit animation */
+        .history-section.hiding {
+            opacity: 0;
+            transform: translateX(30px) scale(0.96);
+        }
+        
         .history-title {
             font-size: 11px;
             font-weight: 700;
@@ -753,8 +918,37 @@
             border-radius: var(--radius-sm);
             box-shadow: var(--shadow);
             overflow: hidden;
-            animation: fadeSlide 0.3s ease;
+            animation: historyItemEnter 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
+        
+        /* Animation for new history items appearing */
+        @keyframes historyItemEnter {
+            from { 
+                opacity: 0; 
+                transform: translateY(-20px) scale(0.95); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
+        }
+        
+        /* Animation for history item deletion */
+        .history-item.deleting {
+            animation: historyItemExit 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        
+        @keyframes historyItemExit {
+            from { 
+                opacity: 1; 
+                transform: translateX(0) scale(1); 
+            }
+            to { 
+                opacity: 0; 
+                transform: translateX(100%) scale(0.9); 
+            }
+        }
+
         .history-header {
             display: flex;
             align-items: center;
@@ -765,6 +959,12 @@
             user-select: none;
         }
         .history-header:hover { background: var(--gray-50); }
+        
+        .history-header:hover .history-delete-btn {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
         .history-num {
             width: 32px;
             height: 32px;
@@ -789,6 +989,8 @@
             font-weight: 800;
             color: var(--blue);
         }
+        
+        /* Edit button */
         .history-edit-btn {
             padding: 6px 12px;
             background: var(--blue);
@@ -807,6 +1009,33 @@
             background: var(--blue-light);
             transform: scale(1.05);
         }
+        
+        /* Delete button */
+        .history-delete-btn {
+            padding: 6px 12px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            font-family: 'Rubik', sans-serif;
+            cursor: pointer;
+            transition: background var(--transition), transform var(--transition);
+            white-space: nowrap;
+            letter-spacing: 0.3px;
+            opacity: 1;
+            pointer-events: none;
+        }
+        .history-delete-btn:hover {
+            background: #c82333;
+            transform: scale(1.05);
+        }
+        
+        .history-delete-btn:active {
+            transform: scale(0.95);
+        }
+        
         .history-toggle {
             width: 22px;
             height: 22px;
@@ -818,16 +1047,46 @@
             font-size: 11px;
             color: var(--gray-400);
             transition: transform var(--transition), background var(--transition);
+            flex-shrink: 0;
         }
-        .history-item.open .history-toggle { transform: rotate(90deg); background: var(--blue-pale); color: var(--blue); }
+        
+        /* Animation for toggling open/close */
+        .history-item.open .history-toggle {
+            transform: rotate(90deg);
+            background: var(--blue-pale);
+            color: var(--blue);
+        }
+        
         .history-details {
-            display: none;
+            display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1px;
             background: var(--gray-100);
             border-top: 1px solid var(--gray-100);
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(-8px);
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
+                        opacity 0.3s ease,
+                        transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .history-item.open .history-details { display: grid; }
+        
+        .history-item.open .history-details {
+            max-height: 400px;
+            opacity: 1;
+            transform: translateY(0);
+            transition: max-height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                        opacity 0.35s ease 0.05s,
+                        transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .history-item:not(.open) .history-details {
+            max-height: 0;
+            opacity: 0;
+            transform: translateY(-8px);
+        }
+        
         .history-detail-cell {
             background: var(--white);
             padding: 14px 18px;
@@ -874,12 +1133,108 @@
             .option-cell:nth-child(2n) { border-right: none; }
             .color-grid-section { padding: 12px 14px; }
             .history-details { grid-template-columns: 1fr 1fr; }
-            .area-wrap { padding: 28px 24px; }
+            .area-wrap { padding: 20px 16px; }
+            .area-input-group { width: 100%; }
+            .area-input-row {
+                position: relative;
+                width: 100%;
+                border: 2px solid var(--gray-200);
+                border-radius: var(--radius-sm);
+                overflow: hidden;
+                background: var(--white);
+            }
+            .area-input {
+                width: 100%;
+                border: none;
+                padding: 14px 16px;
+                padding-right: 50px;
+                font-size: 20px;
+                text-align: center;
+            }
+            .area-unit {
+                position: absolute;
+                right: 0px;
+                top: 50%;
+                transform: translateY(-50%);
+                border: none;
+                padding: 0;
+                font-size: 14px;
+                pointer-events: none;
+                font-weight: 600;
+                color: var(--gray-400);
+                padding: 19px 18px;
+                border-left: 1px solid var(--gray-100);
+                background: var(--gray-50);
+            }
+            .area-confirm-btn { width: 100%; }
+            .area-hint { text-align: center; font-size: 11px; }
             .final-actions { flex-direction: column; align-items: stretch; }
+            
+            /* History Header Adaptivity */
+            .history-header {
+                flex-wrap: wrap;
+                gap: 8px;
+                padding: 12px 14px;
+            }
+            .history-num {
+                width: 28px;
+                height: 28px;
+                font-size: 12px;
+            }
+            .history-summary {
+                font-size: 13px;
+                flex-basis: calc(100% - 44px);
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .history-price {
+                font-size: 14px;
+                font-weight: 700;
+                order: 10;
+                flex-basis: 100%;
+                text-align: left;
+                padding-top: 6px;
+                border-top: 1px solid var(--gray-100);
+                margin-top: 4px;
+            }
+            .history-edit-btn, .history-delete-btn {
+                padding: 5px 10px;
+                font-size: 10px;
+            }
+            .history-edit-btn {
+                opacity: 1;
+                pointer-events: auto;
+            }
+            .history-delete-btn {
+                opacity: 1;
+                pointer-events: auto;
+                background: #dc3545;
+            }
+            .history-toggle {
+                width: 20px;
+                height: 20px;
+                font-size: 10px;
+            }
         }
         @media (max-width: 400px) {
             .history-details { grid-template-columns: 1fr; }
             .option-grid { grid-template-columns: repeat(2, 1fr); }
+            
+            /* Extra small screens */
+            .history-header {
+                padding: 10px 12px;
+            }
+            .history-summary {
+                font-size: 12px;
+            }
+            .history-price {
+                font-size: 13px;
+            }
+            .history-edit-btn, .history-delete-btn {
+                padding: 4px 8px;
+                font-size: 9px;
+            }
         }
     </style>
 </head>
@@ -1093,7 +1448,7 @@
                         <h2 class="final-title">Расчёт завершён!</h2>
                         <p class="final-subtitle">Параметры сохранены в истории расчётов ниже</p>
                         <div class="final-actions">
-                            <button class="edit-calc-btn" onclick="goBack()">← Изменить параметры</button>
+                            <button class="edit-calc-btn" onclick="goBack()">← Редактировать параметры</button>
                             <button class="new-calc-btn" onclick="startNewCalculation()">+ Новый расчёт</button>
                         </div>
                     </div>
@@ -1610,6 +1965,26 @@ function renderHistory() {
     const list = document.getElementById('history-list');
     const totalSection = document.getElementById('history-total');
     const totalValue = document.getElementById('history-total-value');
+    
+    // Hide the entire history section if no calculations exist
+    if (completedCalculations.length === 0) {
+        // If section is currently visible, play exit animation first
+        if (section.style.display !== 'none' && !section.classList.contains('hiding')) {
+            section.classList.add('hiding');
+            setTimeout(() => {
+                section.style.display = 'none';
+                section.classList.remove('hiding');
+                list.innerHTML = '';
+            }, 350); // Match CSS transition duration
+            return;
+        }
+        section.style.display = 'none';
+        list.innerHTML = '';
+        return;
+    }
+    
+    // Remove hiding class if present and show section
+    section.classList.remove('hiding');
     section.style.display = 'block';
     list.innerHTML = '';
     
@@ -1634,12 +2009,15 @@ function renderHistory() {
     completedCalculations.slice().reverse().forEach((calc, reverseIndex) => {
         const item = document.createElement('div');
         item.className = 'history-item';
+        // Calculate actual index in the original array
+        const actualIndex = completedCalculations.length - 1 - reverseIndex;
         item.innerHTML = `
             <div class="history-header" onclick="toggleHistory(this)">
                 <div class="history-num">${calc.number}</div>
                 <div class="history-summary">${calc.panel} · ${calc.insulation} · ${calc.thickness}</div>
-                <button class="history-edit-btn" onclick="event.stopPropagation(); loadFromHistory(${reverseIndex})">✎ Изменить</button>
-                <div class="history-price">${calc.totalPrice}</div>
+                <button class="history-edit-btn" onclick="event.stopPropagation(); loadFromHistory(${reverseIndex})">✎ Редактировать</button>
+                <button class="history-delete-btn" onclick="event.stopPropagation(); deleteHistoryItem(${actualIndex}, this)">✕ Удалить</button>
+                <div class="history-price">${calc.priceM2}/м² | ${calc.totalPrice}</div>
                 <div class="history-toggle">▶</div>
             </div>
             <div class="history-details">
@@ -1649,8 +2027,6 @@ function renderHistory() {
                 <div class="history-detail-cell"><div class="history-detail-label">Площадь</div><div class="history-detail-val">${calc.area}</div></div>
                 <div class="history-detail-cell"><div class="history-detail-label">Цвет</div><div class="history-detail-val">${calc.color}</div></div>
                 <div class="history-detail-cell"><div class="history-detail-label">Профилирование</div><div class="history-detail-val">${calc.profiling}</div></div>
-                <div class="history-detail-cell"><div class="history-detail-label">Цена / м²</div><div class="history-detail-val">${calc.priceM2}</div></div>
-                <div class="history-detail-cell"><div class="history-detail-label">Итого</div><div class="history-detail-val">${calc.totalPrice}</div></div>
             </div>
         `;
         list.appendChild(item);
@@ -1659,6 +2035,32 @@ function renderHistory() {
 
 function toggleHistory(header) {
     header.parentElement.classList.toggle('open');
+}
+
+// Delete history item with animation
+function deleteHistoryItem(actualIndex, btn) {
+    // Find the parent history-item element
+    const historyItem = btn.closest('.history-item');
+    
+    // Add the deleting class to trigger the exit animation
+    historyItem.classList.add('deleting');
+    
+    // Wait for the animation to complete before removing from array and re-rendering
+    setTimeout(() => {
+        // Remove the item from the array
+        completedCalculations.splice(actualIndex, 1);
+        
+        // If we deleted the item being edited, reset editing mode
+        if (editingIndex === actualIndex) {
+            editingIndex = -1;
+        } else if (editingIndex > actualIndex) {
+            // If we deleted an item before the one being edited, adjust the index
+            editingIndex--;
+        }
+        
+        // Re-render the history
+        renderHistory();
+    }, 350); // Match this to the CSS animation duration
 }
 
 // Init
